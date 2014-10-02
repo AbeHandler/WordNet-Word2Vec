@@ -43,7 +43,6 @@ print model.similarity("man", "woman")
 print model.similarity("man", "horse")
 
 for i in range(counter):
-	print counter
 	for j in range(counter):
 		distances[i,j] = model.similarity(words[i], words[i])
 
