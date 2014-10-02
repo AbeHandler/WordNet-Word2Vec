@@ -3,6 +3,8 @@ import os
 import hashlib
 import sys
 import numpy as np
+from nltk.stem.lancaster import LancasterStemmer
+st = LancasterStemmer()
 
 class MySentences(object):
      def __init__(self, dirname):
@@ -12,7 +14,7 @@ class MySentences(object):
          for fname in os.listdir(self.dirname):
              for line in open(os.path.join(self.dirname, fname)):
                  line = line.lower()
-                 yield line.split()
+                 yield st.stem([i for i in line.split()])
 
 
 location = "/home/abe-lens-laptop/nltk_data/corpora/gutenberg"
@@ -44,12 +46,13 @@ print model.similarity("man", "horse")
 
 for i in range(counter):
 	for j in range(counter):
-		distances[i,j] = model.similarity(words[i], words[i])
+		distances[i,j] = model.similarity(words[i], words[j])
+		distances[j,i] = model.similarity(words[j], words[i])
 
 print distances[numbers["man"], numbers["woman"]]
 
-mat.dump("my_matrix.dat")
-mat2 = numpy.load("my_matrix.dat")
+distances.dump("my_matrix.dat")
+distances = np.load("my_matrix.dat")
 
 '''
 import numpy as np
