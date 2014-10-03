@@ -45,9 +45,7 @@ model = gensim.models.Word2Vec.load(fn)
 for r1 in relations:
 	for r2 in relations:
 		try:
-			print "****" + str(model.n_similarity(r1.split(" "),r2.split(" ")))
-			print r1
-			print r2
+			print str(model.n_similarity(r1.split(" "),r2.split(" "))) + "\t" + " ".join(r1.split(" ")) + "\t" + " ".join(r2.split(" "))
 		except:
 			pass
 
