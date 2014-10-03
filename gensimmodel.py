@@ -31,18 +31,24 @@ relations = []
 for line in sys.stdin:
 	relations.append(line.replace("\n", ""))
 
-location = sys.argv[1]
+#location = sys.argv[1]
 
-fn = location.replace("/", "") + "model"
+#fn = location.replace("/", "") + "model"
 
-if not os.path.isfile(fn):
-    sentences = MySentences(location) # a memory-friendly iterator
-    model = gensim.models.Word2Vec(sentences, min_count=10)
-    model.save(fn)
+#if not os.path.isfile(fn):
+#    sentences = MySentences(location) # a memory-friendly iterator
+#    model = gensim.models.Word2Vec(sentences, min_count=10)
+#    model.save(fn)
 
-model = gensim.models.Word2Vec.load(fn)
+model = gensim.models.Word2Vec.load_word2vec_format('GoogleNews-vectors-negative300.bin', binary="True")
+
+print 'got model'
+counter = 0
 
 for r1 in relations:
+	counter = counter + 1
+	if (counter % 100) == 0:
+		print counter
 	for r2 in relations:
 		try:
 			print str(model.n_similarity(r1.split(" "),r2.split(" "))) + "\t" + " ".join(r1.split(" ")) + "\t" + " ".join(r2.split(" "))

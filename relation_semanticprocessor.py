@@ -11,7 +11,10 @@ class SemanticPair:
 
 for line in sys.stdin:
 	vals = line.replace("\n", "").split("\t")
-	relations.append(SemanticPair(vals[0], vals[1], vals[2]))
+	try:
+		relations.append(SemanticPair(vals[0], vals[1], vals[2]))
+	except IndexError:
+		print "out of range"
 
 relations.sort(key=lambda x: x.value, reverse=True)
 
