@@ -19,4 +19,5 @@ for line in sys.stdin:
 relations.sort(key=lambda x: x.value, reverse=True)
 
 for r in relations:
-	print str(r.value) + "\t" + r.relationone + "\t" + r.relationtwo
+	if r.value>0:
+		print str(r.value) + "\t" + r.relationone + "\t" + r.relationtwo
