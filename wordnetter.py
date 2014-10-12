@@ -11,12 +11,7 @@ parser.add_argument('--verbose', '-v', action='count')
 parser.add_argument('--out', '-o')
 args = vars(parser.parse_args())
 
-print args
 verbose = args['verbose'] > 0
-
-if args['out']:
-    with open(args['out'], "a") as results:
-        results.write("appended text")
 
 def same_stem(one, two):
 	if stemmer.stem(one) == stemmer.stem(two):
@@ -24,18 +19,18 @@ def same_stem(one, two):
 	else:
 		return False
 
-#print same_stem("run", "running")
-
 
 def getAntonyms(ss):
-	for l in ss.lemmas:
+	for l in ss.lemmas():
 		if len(l.antonyms()) > 0:
-			return [stemmer.stem(l.name) for l in l.antonyms()]
+			return [stemmer.stem(l.name()) for l in l.antonyms()]
 		return []
+
 
 def intersect(a, b):
     """ return the intersection of two lists """
     return list(set(a) & set(b))
+
 
 def translatePOS(pos):
 	if pos == "verb":
@@ -81,7 +76,6 @@ def antonymous(a, b):
 		return True
 	return False
 
-print synononymous('spicy', 'hot')
 '''
 for ss in wn.synsets("bad"): # Each synset represents a diff concept.
 	antonyms = getAntonyms(ss)

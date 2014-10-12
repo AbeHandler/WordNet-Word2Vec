@@ -1,5 +1,6 @@
 from gensim.models import word2vec
 from wordnetter import synononymous
+from wordnetter import antonymous
 from nltk.corpus import reuters
 from nltk.stem.snowball import SnowballStemmer
 import random
@@ -42,6 +43,8 @@ for r in randoms:
        for s in sims:
            if synononymous(s[0],r):
                printout(",".join(['syn',s[0],r]))
+           elif antonymous(s[0],r):
+               printout(",".join(['ant',s[0],r]))
            else:
                printout(",".join(['none', s[0], r]))
    except KeyError:
