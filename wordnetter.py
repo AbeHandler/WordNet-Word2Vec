@@ -59,11 +59,9 @@ def synononymous(worda, wordb):
     synwords_a = []
     synwords_b = []
     for a in getSynsets(worda):
-        synwords_a.extend(a.lemma_names)
+        synwords_a.extend([stemmer.stem(str(lemma.name())) for lemma in a.lemmas()])
     for b in getSynsets(wordb):
-        synwords_b.extend(b.lemma_names)
-    synwords_a = set([stemmer.stem(a) for a in synwords_a])
-    synwords_b = set([stemmer.stem(b) for b in synwords_b])
+        synwords_b.extend([stemmer.stem(str(lemma.name())) for lemma in b.lemmas()])
     intersection = intersect(synwords_a, synwords_b)
     if verbose:
         for i in intersection:
