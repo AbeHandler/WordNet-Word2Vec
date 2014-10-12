@@ -76,6 +76,43 @@ def antonymous(a, b):
 		return True
 	return False
 
+
+def hyoponomous(a, b):
+    synsets_a = getSynsets(a)
+    total_antonyms_a = []
+
+    hyponyms = []
+
+    for a in synsets_a:
+        hyponyms = a.hyponyms()
+        print len(hyponyms)
+        for h in hyponyms:
+            hyponyms.extend([stemmer.stem(str(lemma.name())) for lemma in a.lemmas()])
+
+    if stemmer.stem(b) in hyponyms:
+        return True
+    return False
+
+
+def hypernomous(a, b):
+    synsets_a = getSynsets(a)
+    total_antonyms_a = []
+
+    hypernyms = []
+
+    for a in synsets_a:
+        hypernyms = a.hypernyms()
+        for h in hypernyms:
+            hypernyms.extend([stemmer.stem(str(lemma.name())) for lemma in a.lemmas()])
+
+    if stemmer.stem(b) in hypernyms:
+        return True
+    return False
+
+
+#print hypernomous('hot', 'cold')
+#print hyernomous('hot', 'cold')
+
 '''
 for ss in wn.synsets("bad"): # Each synset represents a diff concept.
 	antonyms = getAntonyms(ss)

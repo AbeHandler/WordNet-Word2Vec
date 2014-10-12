@@ -1,8 +1,10 @@
 from gensim.models import word2vec
 from wordnetter import synononymous
 from wordnetter import antonymous
+from wordnetter import hypernomous
 from nltk.corpus import reuters
 from nltk.stem.snowball import SnowballStemmer
+from nltk.corpus import stopwords
 import random
 import argparse
 
@@ -29,25 +31,32 @@ def printout(line):
 randoms = random.sample(reuters.words(), 100000)
 counter = 0
 for r in randoms:
-   try:
-       if verbose: 
-           print "word from vocab {}".format(r)
-       n = 1
-       while same_stem(model.most_similar(positive=[r], topn=n).pop()[0], r):
+    try:
+        if verbose:
+            print "word from vocab {}".format(r)
+        n = 1
+        while same_stem(model.most_similar(positive=[r], topn=n).pop()[0], r):
             if verbose:
-                print "same stem {}".format(model.most_similar(positive=[r], topn=n).pop()[0])
+                print "same stem {}".format(model.most_similar(positive=[r],
+                                            topn=n).pop()[0])
                 print 'incrementing n'
             n = n + 1
-       counter = counter + 1
-       sims = [model.most_similar(positive=[r], topn=n).pop()]
-       for s in sims:
-           if synononymous(s[0],r):
-               printout(",".join(['syn',s[0],r]))
-           elif antonymous(s[0],r):
-               printout(",".join(['ant',s[0],r]))
-           else:
-               printout(",".join(['none', s[0], r]))
-   except KeyError:
-       pass  #skip words not in the model
-   except UnicodeEncodeError:
-       pass
+        sims = [model.most_similar(positive=[r], topn=n).pop()]
+        for s in sims:
+            if s in stopwords.words('english'):
+                printout(",".join(['stop', s[0], r]))
+            # elif hypernomous(s[0],r):
+            #    print 'hyp'
+            #    printout(",".join(['hyp',s[0],r]))
+            elif synononymous(s[0], r):
+                printout(",".join(['syn', s[0], r]))
+            elif antonymous(s[0], r):
+                printout(",".join(['ant', s[0], r]))
+            else:
+                printout(",".join(['none', s[0], r]))
+    except KeyError:
+        print printout(",".join(['KeyError', s[0], r]))
+        pass
+    except UnicodeEncodeError:
+        print printout(",".join(['UnicodeEncodeError', s[0], r]))
+        pass
