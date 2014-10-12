@@ -31,6 +31,7 @@ def printout(line):
 randoms = random.sample(reuters.words(), 100000)
 counter = 0
 for r in randoms:
+    r = r.encode('ascii', 'ignore')
     try:
         if verbose:
             print "word from vocab {}".format(r)
@@ -43,6 +44,7 @@ for r in randoms:
             n = n + 1
         sims = [model.most_similar(positive=[r], topn=n).pop()]
         for s in sims:
+            s = (s[0].encode("ascii", 'ignore'), s[1])
             if s in stopwords.words('english'):
                 printout(",".join(['stop', s[0], r]))
             # elif hypernomous(s[0],r):
