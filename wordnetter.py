@@ -53,39 +53,25 @@ def getSynsets(word, pos=None):
 '''
 includes antonyms
 '''
-def synononymish(a, b, pos=None):
-	total_a_words = []
-	total_b_words = []
-
-	synsets_a = getSynsets(a,pos)
-	for ss in synsets_a:
-		antonyms_a = getAntonyms(ss)
-		synonyms_a = ss.lemma_names()
-		total_a_words.extend(antonyms_a)
-		total_a_words.extend(synonyms_a)
-	synsets_b = getSynsets(b, pos)
-	for ss in synsets_b:
-		antonyms_b = getAntonyms(ss)
-		synonyms_b = ss.lemma_names()
-		total_b_words.extend(antonyms_b)
-		total_b_words.extend(synonyms_b)
-	intersection = intersect(total_a_words, total_b_words)
-	if len(intersection)>0:
-		return True
-	return False
 
 
-def synononymous(a, b, pos=None, verbose=None):
-	synsets_a = getSynsets(a,pos)
-	synsets_b = getSynsets(b, pos)
-	intersection = intersect(synsets_a, synsets_b)
-	if verbose:
-		for i in intersection:
-			print i.definition()
-			print i.examples()
-	if len(intersection)>0:
-		return True
-	return False
+def synononymous(worda, wordb):
+    synwords_a = []
+    synwords_b = []
+    for a in getSynsets(worda):
+        synwords_a.extend(a.lemma_names)
+    for b in getSynsets(wordb):
+        synwords_b.extend(b.lemma_names)
+    synwords_a = set([stemmer.stem(a) for a in synwords_a])
+    synwords_b = set([stemmer.stem(b) for b in synwords_b])
+    intersection = intersect(synwords_a, synwords_b)
+    if verbose:
+        for i in intersection:
+            print i.definition()
+            print i.examples()
+    if len(intersection) > 0:
+        return True
+    return False
 
 def antonymous(a, b):
 	synsets_a = getSynsets(a)
@@ -97,7 +83,7 @@ def antonymous(a, b):
 		return True
 	return False
 
-print antonymous('open', 'closed')
+print synononymous('spicy', 'hot')
 '''
 for ss in wn.synsets("bad"): # Each synset represents a diff concept.
 	antonyms = getAntonyms(ss)
