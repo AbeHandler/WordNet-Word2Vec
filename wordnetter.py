@@ -1,11 +1,37 @@
 import sys
 from nltk.corpus import wordnet as wn
+from nltk.stem.snowball import SnowballStemmer
+
+stemmer = SnowballStemmer("english")
+
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--verbose', '-v', action='count')
+parser.add_argument('--out', '-o')
+args = vars(parser.parse_args())
+
+print args
+verbose = args['verbose'] > 0
+
+if args['out']:
+    with open(args['out'], "a") as results:
+        results.write("appended text")
+
+def same_stem(one, two):
+	if stemmer.stem(one) == stemmer.stem(two):
+		return True
+	else:
+		return False
+
+#print same_stem("run", "running")
+
 
 def getAntonyms(ss):
-    for l in ss.lemmas():
-        if len (l.antonyms())>0:
-            return [l.name() for l in l.antonyms()]
-        return []
+	for l in ss.lemmas:
+		if len(l.antonyms()) > 0:
+			return [stemmer.stem(l.name) for l in l.antonyms()]
+		return []
 
 def intersect(a, b):
     """ return the intersection of two lists """
@@ -15,6 +41,7 @@ def translatePOS(pos):
 	if pos == "verb":
 		return wn.VERB
 	return None
+
 
 def getSynsets(word, pos=None):
 	if pos:
@@ -43,7 +70,6 @@ def synononymish(a, b, pos=None):
 		total_b_words.extend(antonyms_b)
 		total_b_words.extend(synonyms_b)
 	intersection = intersect(total_a_words, total_b_words)
-	print intersection
 	if len(intersection)>0:
 		return True
 	return False
@@ -61,37 +87,17 @@ def synononymous(a, b, pos=None, verbose=None):
 		return True
 	return False
 
-def antonymous(a, b, pos=None, verbose=None):
-	synsets_a = getSynsets(a,pos)
-	synsets_b = getSynsets(b, pos)
+def antonymous(a, b):
+	synsets_a = getSynsets(a)
 	total_antonyms_a = []
-	total_antonyms_b = []
-	total_synonyms_a = []
-	total_synonyms_b = []
 
 	for a in synsets_a:
 		total_antonyms_a.extend(getAntonyms(a))
-		total_synonyms_a.extend(a.lemma_names())
-	for b in synsets_b:
-		total_antonyms_b.extend(getAntonyms(b))
-		total_synonyms_b.extend(b.lemma_names())
-
-	intersection_1 = intersect(total_synonyms_a, total_antonyms_b)
-	intersection_2 = intersect(total_synonyms_b, total_antonyms_a)
-
-	if verbose:
-		for i in intersection_1:
-			print a
-			print b
-		for i in intersection_2:
-			print a
-			print b
-
-	if len(intersection_1 + intersection_2)>0:
+	if stemmer.stem(b) in total_antonyms_a:
 		return True
 	return False
 
-#print synononymous('opened', 'GIVE', 'v')
+print antonymous('open', 'closed')
 '''
 for ss in wn.synsets("bad"): # Each synset represents a diff concept.
 	antonyms = getAntonyms(ss)
