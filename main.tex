@@ -2,7 +2,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{listings}
 
-\title{An empirical study of semantic similarity in Word2Vec}
+\title{An empirical study of semantic similarity in WordNet and Word2Vec}
 \author{Abe Handler}
 \date{\today}
 
@@ -20,16 +20,18 @@ Google's Word2Vec system groups semantically similar words. However, the notion 
 %http://www.sciencedaily.com/releases/2013/05/130522085217.htm 
 %http://techcrunch.com/2010/08/04/schmidt-data/
 
-Understanding the meaning of text is easy for humans -- but hard for computers. Literate adults have no trouble explaining how the meaning of \textit{cool} is related to the meaning of \textit{cold} or how the meaning of \textit{delicious} is related to the word \textit{ice cream}. Yet identifying such semantic links is extremely difficult for a machine. One frequently-cited\footnote{WordNet is the most-frequently cited ``English-language lexiographic resource in computational linguistics" \cite{widdows}} resource, WordNet \cite{wordnet}, fills this gap by offering a large human-curated ``lexical database of English": identifying specific relationships in language -- like the synonymy (same meaning) between \textit{hot} and \textit{spicy}) or the meronomy (part and whole) between \textit{tire} and \textit{car}.
+Understanding the meaning of text is easy for humans -- but hard for computers. Literate adults have no trouble explaining how the meaning of \textit{cool} is related to the meaning of \textit{cold} or how the meaning of \textit{delicious} is related to the word \textit{ice cream}. Yet identifying such semantic links is extremely difficult for a machine. One frequently-cited\footnote{WordNet is the most-frequently cited ``English-language lexiographic resource in computational linguistics" \cite{widdows}} resource, WordNet \cite{wordnet}, fills this gap by offering a large human-curated ``lexical database of English": identifying specific relationships in language -- like the synonymy (same meaning) between \textit{hot} and \textit{spicy} or the meronomy (part and whole) between \textit{tire} and \textit{car}.
 
-However, researchers at Google have recently taken a different approach. Instead of relying on people to link together similar words, their Word2Vec system identifies semantic relationships via an neural network that tries to identify semantic similarity at web scale.\cite{Word2Vec}
+However, WordNet comes with certain deficiencies -- as explained in section \ref{WordNet}. In short: WordNet requires a lot of manual work, does not generalize to unknown words and cannot identify a word's meaning from context. In the face of these limitations, researchers have sought to learn words' semantic relationships using purely unsupervised techniques \footnote{including semantic indexing and latent Dirichlet allocation} that place words into a semantic space and then uncover semantic links by finding their neighbors.
 
-This paper analyzes semantic similarity in Word2Vec by comparing it to semantic similarity in WordNet. 
+Google's Word2Vec system follows in that tradition: identifying semantic relationships via a neural network to identify complex links between words at web scale.\cite{Word2Vec}
+
+This paper analyzes Word2Vec's judgements of semantic similarity by comparing them to human-curated judgments in WordNet. 
 
 \section{Related Work}
 
-\subsection{WordNet}
-WordNet has been a part of natural language processing for decades: the project began under supervision of George A. Miller at Princeton University in 1986. The system has its own logic and jargon, all built around the fundamental building block of the ``synonymous set" (or synset) \cite{wordnet} -- an unordered collection of ``cognitively synonymous words and phrases." (Cruse, 1986) In WordNet, car and automobile lie in the same synset.
+\subsection{WordNet}  \label{WordNet}
+WordNet has been a part of natural language processing for decades: the project began under supervision of George A. Miller at Princeton University in 1986. The system has its own logic and jargon, all built around the fundamental building block of the ``synonymous set" (or synset) \cite{wordnet} -- an unordered collection of ``cognitively synonymous words and phrases." (Cruse, 1986) In WordNet, \textit{car} and \textit{automobile} lie in the same synset.
 
 Synsets are linked by relations, with particular relations linking particular words with particular parts of speech. Because ``the majority of the WordNet’s relations connect words from the same part of speech (POS) ... WordNet really consists of four sub-nets, one each for nouns, verbs, adjectives and adverbs, with few cross-POS pointers." \cite{Wordnetwebsite}
 
