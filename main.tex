@@ -1,0 +1,97 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+
+\title{An empirical study of semantic similarity in Word2Vec}
+\author{Abe Handler}
+\date{\today}
+
+\begin{document}
+
+\begin{abstract}
+Google's Word2Vec system groups semantically similar words. However, the notion of semantic similarity is complex. \textit{Wheel} is semantically similar to \textit{car} -- but in an entirely different way than \textit{small} is semantically similar to \textit{smallest} or \textit{building} is semantically similar to \textit{Tower of Pisa}. As Word2Vec's creators  note ``there can be many different types of similarities." This paper performs an empirical comparison of semantic similarity in Word2Vec with semantically similar synonyms, antonyms and hypernyms in WordNet.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}
+%frame the problem. title. explain a title piece by piece. introducing the problem. introducing enough ##background to give the idea of what you're doing
+
+%http://www.sciencedaily.com/releases/2013/05/130522085217.htm 
+%http://techcrunch.com/2010/08/04/schmidt-data/
+
+Understanding the meaning of text is easy for humans -- but hard for computers. Literate adults have no trouble explaining how the meaning of \textit{cool} is related to the meaning of \textit{cold} or how the meaning of \textit{delicious} is related to the word \textit{ice cream}. Yet identifying such semantic links is extremely difficult for a machine. One frequently-cited\footnote{WordNet is the most-frequently cited ``English-language lexiographic resource in computational linguistics" \cite{widdows}} resource, WordNet \cite{wordnet}, fills this gap by offering a large human-curated ``lexical database of English": identifying specific relationships in language -- like the synonymy (same meaning) between \textit{hot} and \textit{spicy}) or the meronomy (part and whole) between \textit{tire} and \textit{car}.
+
+However, researchers at Google have recently taken a different approach. Instead of relying on people to link together similar words, their Word2Vec system identifies semantic relationships via an neural network that tries to identify semantic similarity at web scale.\cite{Word2Vec}
+
+This paper analyzes semantic similarity in Word2Vec by comparing it to semantic similarity in WordNet. 
+
+\section{Related Work}
+
+\subsection{WordNet}
+WordNet has been a part of natural language processing for decades: the project began under supervision of George A. Miller at Princeton University in 1986. The system has its own logic and jargon, all built around the fundamental building block of the ``synonymous set" (or synset) \cite{wordnet} -- an unordered collection of ``cognitively synonymous words and phrases." (Cruse, 1986) In WordNet, car and automobile lie in the same synset.
+
+Synsets are linked by relations, with particular relations linking particular words with particular parts of speech. Because ``the majority of the WordNet’s relations connect words from the same part of speech (POS) ... WordNet really consists of four sub-nets, one each for nouns, verbs, adjectives and adverbs, with few cross-POS pointers." \cite{Wordnetwebsite}
+
+\begin{itemize}
+
+  \item Synonomy
+  \item Hypernomy
+  \item Meronomy
+
+\end{itemize}
+
+\subsection{Machine Understanding of Semantic Distance}
+Researchers have been trying to teach computers to understand semantic distance for several decades. LDA, LSI
+
+\subsection{Word2Vec}
+
+\subsection{Comparisons}
+
+There are a few important differences between WordNet and Word2Vec: their sizes, their supervision, and their ability to detect context and variations in language. These deserve brief mention.
+
+\textbf{Size.} Comparing WordNet's exact size with Word2Vec is tricky because the systems are not equivalent -- but it's fair to say that Word2Vec is much, much larger than WordNet. Where WordNet 2.1 contains around 118,000 synsets \cite{wordnet}, Google published a Word2Vec model trained on 100 billion words \cite{Word2VecWebsite} of news text (the model used in this paper). Not every word in this training data makes it into the Word2Vec models (which can skip infrequent words, depending on parameters): but it's fair to say that Word2Vec can be much larger. 
+
+\textbf{Supervision.} WordNet has been painstaking crafted by generations of teachers and graduate students. This labor comes with a cost.
+
+\textbf{Context and variation.} Language changes. If you look up Apple in WordNet, you will find no semantic links to \textit{iMacs} or \textit{laptops} \cite{widdows}. But if you look up Apple in Word2Vec (with a hint to the proper context), you find many relevant words: 
+
+\begin{lstlisting}
+model.most_similar(positive=['apple', 'computer'], topn=10)
+[(u'computers', 0.5846257209777832), (u'laptop', 0.5782973766326904), (u'Apple_IIe', 0.5261160135269165), (u'apples', 0.5179876685142517), (u'iMac', 0.5134725570678711), (u'receive_MacMall_Exclusive', 0.5100301504135132), (u'laptop_computer', 0.5042001008987427), (u'cartoonish_apple', 0.4981755316257477), (u'iBook_laptop', 0.4924653172492981), (u'Macbook_laptop', 0.4881986081600189)]
+\end{lstlisting}
+
+This is because Word2Vec learns the meaning of words based on their contexts -- which shift in different places and times -- it is less brittle than Word2Vec, which assigns a fixed, timeless meaning. 
+
+\section{Experiment One: Semantically most similar word}
+If word vectors represent semantic similarity, we might expect a that word's nearest neighbor in Word2Vec has some semantic relationship in WordNet. We investigate this hypothesis with the following experiment. 
+
+We begin with Google's word model, trained on the Google news corpus. Then we randomly select a word from the Reuters news corpus and search for the closet neighbor in the model (using the popular Gensim Python wrapper \cite{gensim}). We disqualify those neighbors that have the same stem. For instance, if a the closest word to \textit{nearing} is \textit{nears}, we might move on to the next-closest word, \textit{approaching}). Then we look up the nearest neighbors in WordNet to identify any semantic relationship. We repeat this n times. 
+
+-Google news model. For now. Train on reuters corpus? 
+
+-Synonym might be vague. Autumn, fall. Are these semantically closer than case and box? What about other senses of a word?  Box has many different connotations. Word2Vec find this? 
+
+
+\subsection{Results}
+The experiment returns results like this, where the first column is the semantic relationship, the next column is the nearest neighbor and the final column is the word drawn from the Reuters corpus. Frequent KeyErrors occur when a word from Reuters cannot be found in the Google model. (Might need to train on Reuters). 
+
+\begin{lstlisting}
+syn,stockholders,shareholders
+KeyError,stockholders,to
+KeyError,stockholders,to
+none,exceeding,excess
+ant,decrease,increase
+KeyError,decrease,,
+none,Four,Six
+ant,decreased,increased
+none,month,year
+\end{lstlisting}
+
+\section{Future Work}
+The semantic categories in WordNet have been a part of linguistics and philosophy since at least the time of Aristotle. Are the categories insufficiently granular? Does Word2Vec capture meaningful similarities that are not included in WordNet? Or is Word2Vec off? How would you measure this? 
+
+\bibliographystyle{unsrt}%Used BibTeX style is unsrt
+\bibliography{sample}
+
+\end{document}
