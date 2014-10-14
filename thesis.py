@@ -2,6 +2,9 @@ from gensim.models import word2vec
 from wordnetter import synononymous
 from wordnetter import antonymous
 from wordnetter import hypernomous
+from wordnetter import not_in_wordnet
+from wordnetter import holonymous
+from wordnetter import meronymous
 from nltk.corpus import reuters
 from nltk.stem.snowball import SnowballStemmer
 from nltk.corpus import stopwords
@@ -47,6 +50,8 @@ for r in randoms:
             s = (s[0].encode("ascii", 'ignore'), s[1])
             if s in stopwords.words('english'):
                 printout(",".join(['stop', s[0], r]))
+            elif not_in_wordnet(r):
+                printout(",".join(['not_in_wordnet', s[0], r]))
             # elif hypernomous(s[0],r):
             #    print 'hyp'
             #    printout(",".join(['hyp',s[0],r]))
@@ -54,11 +59,12 @@ for r in randoms:
                 printout(",".join(['syn', s[0], r]))
             elif antonymous(s[0], r):
                 printout(",".join(['ant', s[0], r]))
+            elif holonymous(s[0], r):
+                printout(",".join(['holo', s[0], r]))
+            elif meronymous(s[0], r):
+                printout(",".join(['mero', s[0], r]))
             else:
                 printout(",".join(['none', s[0], r]))
     except KeyError:
-        print printout(",".join(['KeyError', s[0], r]))
-        pass
-    except UnicodeEncodeError:
-        print printout(",".join(['UnicodeEncodeError', s[0], r]))
+        print printout(",".join(['KeyError', r]))
         pass

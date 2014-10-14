@@ -110,6 +110,51 @@ def hypernomous(a, b):
     return False
 
 
+def not_in_wordnet(w):
+    syns = getSynsets(w)
+    if len(syns) == 0:
+        return True
+    return False
+
+
+def get_meronyms(w):
+    syns = getSynsets(w)
+    out = []
+    for s in syns:
+        out.extend([s for s in s.member_meronyms()])
+        out.extend([s for s in s.substance_meronyms()])
+        out.extend([s for s in s.part_meronyms()])
+    return out
+
+
+def get_holonyms(w):
+    syns = getSynsets(w)
+    out = []
+    for s in syns:
+        out.extend([s for s in s.member_holonyms()])
+        out.extend([s for s in s.substance_holonyms()])
+        out.extend([s for s in s.part_holonyms()])
+    return out
+
+
+def meronymous(a, b):
+    syn_a = getSynsets(a)
+    syn_b = get_meronyms(b)
+    intersection = intersect(syn_a, syn_b)
+    if len(intersection) > 0:
+        return True
+    return False
+
+
+def holonymous(a, b):
+    syn_a = getSynsets(a)
+    syn_b = get_meronyms(b)
+    intersection = intersect(syn_a, syn_b)
+    if len(intersection) > 0:
+        return True
+    return False
+
+
 #print hypernomous('hot', 'cold')
 #print hyernomous('hot', 'cold')
 
