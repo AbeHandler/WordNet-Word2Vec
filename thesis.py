@@ -56,29 +56,39 @@ for r in words:
         if verbose:
             print "word from vocab {}".format(r)
         n = 0
-        sims = model.most_similar(positive=[r], topn=50)
+        sims = model.most_similar(positive=[r], topn=1000)
         for s in sims:
             n = n + 1
             s = (s[0].encode("ascii", 'ignore'), s[1])
             hit = False
+            search = True
             if same_stem(s[0], r):
+                search = False
                 printout(",".join(['same stem', s[0], r, str(s[1]), str(n)]))
             if not_in_wordnet(r):
+                search = False
                 printout(",".join(['not_in_wordnet', s[0], r, str(s[1]), str(n)]))
-            if hypernomous(s[0], r) > 0:
-                printout(",".join(['hyp', s[0], r, str(s[1]), str(n)]))
-            if hyoponomous(s[0], r) > 0:
-                printout(",".join(['hyp', s[0], r, str(s[1]), str(n)]))
-            if synononymous(s[0], r):
-                printout(",".join(['syn', s[0], r, str(s[1]), str(n)]))
-            if antonymous(s[0], r):
-                printout(",".join(['ant', s[0], r, str(s[1]), str(n)]))
-            if holonymous(s[0], r):
-                printout(",".join(['holo', s[0], r, str(s[1]), str(n)]))
-            if meronymous(s[0], r):
-                printout(",".join(['mero', s[0], r, str(s[1]), str(n)]))
-            if not hit:
-                printout(",".join(['none', s[0], r, str(s[1]), str(n)]))
+            if search:
+                if hypernomous(s[0], r) > 0:
+                    hit = True
+                    printout(",".join(['hyper', s[0], r, str(s[1]), str(n)]))
+                if hyoponomous(s[0], r) > 0:
+                    hit = True
+                    printout(",".join(['hypo', s[0], r, str(s[1]), str(n)]))
+                if synononymous(s[0], r):
+                    hit = True
+                    printout(",".join(['syn', s[0], r, str(s[1]), str(n)]))
+                if antonymous(s[0], r):
+                    hit = True
+                    printout(",".join(['ant', s[0], r, str(s[1]), str(n)]))
+                if holonymous(s[0], r):
+                    hit = True
+                    printout(",".join(['holo', s[0], r, str(s[1]), str(n)]))
+                if meronymous(s[0], r):
+                    hit = True
+                    printout(",".join(['mero', s[0], r, str(s[1]), str(n)]))
+                if not hit:
+                    printout(",".join(['none', s[0], r, str(s[1]), str(n)]))
     except KeyError:
         print printout(",".join(['KeyError', r]))
         pass

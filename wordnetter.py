@@ -80,7 +80,7 @@ def hyoponomous(a, b):
         hyponyms.extend(a.hyponyms())
 
     synsets_b = getSynsets(b)
-    return len(intersection(hyponyms), (set(synsets_b)))
+    return len(intersect(set(hyponyms), (set(synsets_b))))
 
 
 def hypernomous(a, b):
@@ -91,7 +91,7 @@ def hypernomous(a, b):
         hypernyms.extend(a.hypernyms())
 
     synsets_b = getSynsets(b)
-    return len(intersection(hypernyms), (set(synsets_b)))
+    return len(intersect(set(hypernyms), (set(synsets_b))))
 
 
 def not_in_wordnet(w):
