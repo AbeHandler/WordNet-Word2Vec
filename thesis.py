@@ -78,9 +78,9 @@ for r in words:
                 if synononymous(s[0], r):
                     hit = True
                     printout(",".join(['syn', s[0], r, str(s[1]), str(n)]))
-                if antonymous(s[0], r):
-                    hit = True
-                    printout(",".join(['ant', s[0], r, str(s[1]), str(n)]))
+                # if antonymous(s[0], r):
+                #    hit = True
+                #    printout(",".join(['ant', s[0], r, str(s[1]), str(n)]))
                 if holonymous(s[0], r):
                     hit = True
                     printout(",".join(['holo', s[0], r, str(s[1]), str(n)]))

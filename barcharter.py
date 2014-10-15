@@ -10,44 +10,8 @@ import re
 lines = []
 
 
-def isNone(s):
-    if len(re.findall("^none", s)) > 0:
-        return True
-    return False
-
-
-def isSyn(s):
-    if len(re.findall("^syn", s)) > 0:
-        return True
-    return False
-
-
-def isHypo(s):
-    if len(re.findall("^hypo", s)) > 0:
-        return True
-    return False
-
-
-def isHyper(s):
-    if len(re.findall("^hyper", s)) > 0:
-        return True
-    return False
-
-
-def isHolo(s):
-    if len(re.findall("^holo", s)) > 0:
-        return True
-    return False
-
-
-def isMero(s):
-    if len(re.findall("^mero", s)) > 0:
-        return True
-    return False
-
-
-def isAnt(s):
-    if len(re.findall("^ant", s)) > 0:
+def isIt(s, p):
+    if len(re.findall(p, s)) > 0:
         return True
     return False
 
@@ -55,7 +19,15 @@ def isAnt(s):
 for line in sys.stdin:
     lines.append(line.replace("\n", ""))
 
-syn = [l for l in lines if isSyn(l)]
+
+syn = [l for l in lines if isIt(l, "^syn")]
+none = [l for l in lines if isIt(l, "^none")]
+hypo = [l for l in lines if isIt(l, "^hypo")]
+hyper = [l for l in lines if isIt(l, "^hyper")]
+holo = [l for l in lines if isIt(l, "^holo")]
+mero = [l for l in lines if isIt(l, "^mero")]
+ant = [l for l in lines if isIt(l, "^ant")]
+
 
 print syn
 

@@ -32,6 +32,11 @@ def intersect(a, b):
     return list(set(a) & set(b))
 
 
+def union(a, b):
+    """ return the intersection of two lists """
+    return list(set(a.union(set(b)))
+
+
 def translatePOS(pos):
 	if pos == "verb":
 		return wn.VERB
@@ -45,12 +50,7 @@ def getSynsets(word, pos=None):
 		return wn.synsets(word)
 
 
-'''
-includes antonyms
-'''
-
-
-def synononymous(worda, wordb):
+def synononymous(worda, wordb, jaccard=False):
     intersection = intersect(getSynsets(worda), getSynsets(wordb))
     if verbose:
         for i in intersection:
@@ -61,7 +61,7 @@ def synononymous(worda, wordb):
     return False
 
 
-def antonymous(a, b):
+def antonymous(a, b, jaccard=False):
 	synsets_a = getSynsets(a)
 	total_antonyms_a = []
 
@@ -72,26 +72,10 @@ def antonymous(a, b):
 	return False
 
 
-def hyoponomous(a, b):
-    synsets_a = getSynsets(a)
-
-    hyponyms = []
-    for a in synsets_a:
-        hyponyms.extend(a.hyponyms())
-
-    synsets_b = getSynsets(b)
-    return len(intersect(set(hyponyms), (set(synsets_b))))
-
-
-def hypernomous(a, b):
-    synsets_a = getSynsets(a)
-
-    hypernyms = []
-    for a in synsets_a:
-        hypernyms.extend(a.hypernyms())
-
-    synsets_b = getSynsets(b)
-    return len(intersect(set(hypernyms), (set(synsets_b))))
+def jaccard(a, b):
+    intersection = intersect(a, b)
+    union = union(a, b)
+    return len(intersection)/len(union)
 
 
 def not_in_wordnet(w):
@@ -121,19 +105,35 @@ def get_holonyms(w):
     return set(out)
 
 
-def meronymous(a, b):
+def hyoponomous(a, b, jaccard=False):
+    synsets_a = getSynsets(a)
+
+    hyponyms = []
+    for a in synsets_a:
+        hyponyms.extend(a.hyponyms())
+
+    synsets_b = getSynsets(b)
+    return jaccard(hyponyms, synsets_b)
+
+
+def hypernomous(a, b, jaccard=False):
+    synsets_a = getSynsets(a)
+
+    hypernyms = []
+    for a in synsets_a:
+        hypernyms.extend(a.hypernyms())
+
+    synsets_b = getSynsets(b)
+    return jaccard(hypernyms, synsets_b)
+
+
+def meronymous(a, b, jaccard=False):
     syn_a = getSynsets(a)
     syn_b = get_meronyms(b)
-    intersection = intersect(syn_a, syn_b)
-    if len(intersection) > 0:
-        return True
-    return False
+    return jaccard(syn_a, syn_b)
 
 
-def holonymous(a, b):
+def holonymous(a, b, jaccard=False):
     syn_a = getSynsets(a)
     syn_b = get_holonyms(b)
-    intersection = intersect(syn_a, syn_b)
-    if len(intersection) > 0:
-        return True
-    return False
+    return jaccard(syn_a, syn_b)
