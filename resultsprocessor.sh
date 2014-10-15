@@ -5,3 +5,4 @@ cat results.txt | grep 'mero,' | awk -F","  '{print $5}' | sort -n | python char
 cat results.txt | grep 'none,' | awk -F","  '{print $5}' | sort -n | python chartmaker.py No_Relation
 cat results.txt | grep 'hyper,' | awk -F","  '{print $5}' | sort -n | python chartmaker.py Hypernym_Distance
 cat results.txt | grep 'hypo,' | awk -F","  '{print $5}' | sort -n | python chartmaker.py Hyponym_Distance
+cat results.txt | python barcharter.py Bar

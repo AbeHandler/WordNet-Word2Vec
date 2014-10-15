@@ -3,7 +3,61 @@ Bar chart demo with pairs of bars grouped for easy comparison.
 """
 import numpy as np
 import matplotlib.pyplot as plt
+import sys
+import re
 
+
+lines = []
+
+
+def isNone(s):
+    if len(re.findall("^none", s)) > 0:
+        return True
+    return False
+
+
+def isSyn(s):
+    if len(re.findall("^syn", s)) > 0:
+        return True
+    return False
+
+
+def isHypo(s):
+    if len(re.findall("^hypo", s)) > 0:
+        return True
+    return False
+
+
+def isHyper(s):
+    if len(re.findall("^hyper", s)) > 0:
+        return True
+    return False
+
+
+def isHolo(s):
+    if len(re.findall("^holo", s)) > 0:
+        return True
+    return False
+
+
+def isMero(s):
+    if len(re.findall("^mero", s)) > 0:
+        return True
+    return False
+
+
+def isAnt(s):
+    if len(re.findall("^ant", s)) > 0:
+        return True
+    return False
+
+
+for line in sys.stdin:
+    lines.append(line.replace("\n", ""))
+
+syn = [l for l in lines if isSyn(l)]
+
+print syn
 
 n_groups = 5
 
