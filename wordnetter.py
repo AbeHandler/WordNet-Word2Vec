@@ -51,13 +51,7 @@ includes antonyms
 
 
 def synononymous(worda, wordb):
-    synwords_a = []
-    synwords_b = []
-    for a in getSynsets(worda):
-        synwords_a.extend([stemmer.stem(str(lemma.name())) for lemma in a.lemmas()])
-    for b in getSynsets(wordb):
-        synwords_b.extend([stemmer.stem(str(lemma.name())) for lemma in b.lemmas()])
-    intersection = intersect(synwords_a, synwords_b)
+    intersection = intersect(getSynsets(worda), getSynsets(wordb))
     if verbose:
         for i in intersection:
             print i.definition()
@@ -65,6 +59,7 @@ def synononymous(worda, wordb):
     if len(intersection) > 0:
         return True
     return False
+
 
 def antonymous(a, b):
 	synsets_a = getSynsets(a)
@@ -79,35 +74,24 @@ def antonymous(a, b):
 
 def hyoponomous(a, b):
     synsets_a = getSynsets(a)
-    total_antonyms_a = []
 
     hyponyms = []
-
     for a in synsets_a:
-        hyponyms = a.hyponyms()
-        print len(hyponyms)
-        for h in hyponyms:
-            hyponyms.extend([stemmer.stem(str(lemma.name())) for lemma in a.lemmas()])
+        hyponyms.extend(a.hyponyms())
 
-    if stemmer.stem(b) in hyponyms:
-        return True
-    return False
+    synsets_b = getSynsets(b)
+    return len(intersection(hyponyms), (set(synsets_b)))
 
 
 def hypernomous(a, b):
     synsets_a = getSynsets(a)
-    total_antonyms_a = []
 
     hypernyms = []
-
     for a in synsets_a:
-        hypernyms = a.hypernyms()
-        for h in hypernyms:
-            hypernyms.extend([stemmer.stem(str(lemma.name())) for lemma in a.lemmas()])
+        hypernyms.extend(a.hypernyms())
 
-    if stemmer.stem(b) in hypernyms:
-        return True
-    return False
+    synsets_b = getSynsets(b)
+    return len(intersection(hypernyms), (set(synsets_b)))
 
 
 def not_in_wordnet(w):
@@ -124,7 +108,7 @@ def get_meronyms(w):
         out.extend([s for s in s.member_meronyms()])
         out.extend([s for s in s.substance_meronyms()])
         out.extend([s for s in s.part_meronyms()])
-    return out
+    return set(out)
 
 
 def get_holonyms(w):
@@ -134,7 +118,7 @@ def get_holonyms(w):
         out.extend([s for s in s.member_holonyms()])
         out.extend([s for s in s.substance_holonyms()])
         out.extend([s for s in s.part_holonyms()])
-    return out
+    return set(out)
 
 
 def meronymous(a, b):
@@ -148,34 +132,8 @@ def meronymous(a, b):
 
 def holonymous(a, b):
     syn_a = getSynsets(a)
-    syn_b = get_meronyms(b)
+    syn_b = get_holonyms(b)
     intersection = intersect(syn_a, syn_b)
     if len(intersection) > 0:
         return True
     return False
-
-
-#print hypernomous('hot', 'cold')
-#print hyernomous('hot', 'cold')
-
-'''
-for ss in wn.synsets("bad"): # Each synset represents a diff concept.
-	antonyms = getAntonyms(ss)
-	synonyms = ss.lemma_names()
-	#returns synets
-	hypernyms = ss.hypernyms()
-	hyponyms = ss.hyponyms()
-	member_holonyms = ss.member_holonyms()
-	substance_holonyms = ss.substance_holonyms()
-	instance_hyponyms = ss.instance_hyponyms()
-	part_holonyms = ss.part_holonyms()
-	member_meronyms = ss.member_meronyms()
-	substance_meronyms = ss.substance_meronyms()
-	part_meronyms = ss.part_meronyms()
-
-	total = antonyms + synonyms + hypernyms  + hyponyms  + member_holonyms + substance_holonyms + instance_hyponyms \
-	+ part_holonyms + member_meronyms + substance_meronyms + part_meronyms
-	total = [t for t in total if isinstance(t, unicode)]
-
-	print set(total)
-'''

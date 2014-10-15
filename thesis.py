@@ -5,11 +5,18 @@ from wordnetter import hypernomous
 from wordnetter import not_in_wordnet
 from wordnetter import holonymous
 from wordnetter import meronymous
+from wordnetter import hyoponomous
 from nltk.corpus import reuters
 from nltk.stem.snowball import SnowballStemmer
 from nltk.corpus import stopwords
 import random
 import argparse
+import os
+
+try:
+    os.remove("results.txt")
+except OSError:
+    pass
 
 model = word2vec.Word2Vec.load_word2vec_format('GoogleNews-vectors-negative300.bin', binary=True)
 stemmer = SnowballStemmer("english")
@@ -31,40 +38,47 @@ def printout(line):
         with open(args['out'], "a") as results:
             results.write('\n' + line)
 
-randoms = random.sample(reuters.words(), 100000)
+def inStopWords(w):
+    if s in stopwords.words('english'):
+        return True
+    return False
+
+words = set(reuters.words())
+print len(words)
+
+words = [s for s in words if not inStopWords(s)]
+print len(words)
+
 counter = 0
-for r in randoms:
+for r in words:
     r = r.encode('ascii', 'ignore')
     try:
         if verbose:
             print "word from vocab {}".format(r)
-        n = 1
-        while same_stem(model.most_similar(positive=[r], topn=n).pop()[0], r):
-            if verbose:
-                print "same stem {}".format(model.most_similar(positive=[r],
-                                            topn=n).pop()[0])
-                print 'incrementing n'
-            n = n + 1
-        sims = [model.most_similar(positive=[r], topn=n).pop()]
+        n = 0
+        sims = model.most_similar(positive=[r], topn=50)
         for s in sims:
+            n = n + 1
             s = (s[0].encode("ascii", 'ignore'), s[1])
-            if s in stopwords.words('english'):
-                printout(",".join(['stop', s[0], r]))
-            elif not_in_wordnet(r):
-                printout(",".join(['not_in_wordnet', s[0], r]))
-            # elif hypernomous(s[0],r):
-            #    print 'hyp'
-            #    printout(",".join(['hyp',s[0],r]))
-            elif synononymous(s[0], r):
-                printout(",".join(['syn', s[0], r]))
-            elif antonymous(s[0], r):
-                printout(",".join(['ant', s[0], r]))
-            elif holonymous(s[0], r):
-                printout(",".join(['holo', s[0], r]))
-            elif meronymous(s[0], r):
-                printout(",".join(['mero', s[0], r]))
-            else:
-                printout(",".join(['none', s[0], r]))
+            hit = False
+            if same_stem(s[0], r):
+                printout(",".join(['same stem', s[0], r, str(s[1]), str(n)]))
+            if not_in_wordnet(r):
+                printout(",".join(['not_in_wordnet', s[0], r, str(s[1]), str(n)]))
+            if hypernomous(s[0], r) > 0:
+                printout(",".join(['hyp', s[0], r, str(s[1]), str(n)]))
+            if hyoponomous(s[0], r) > 0:
+                printout(",".join(['hyp', s[0], r, str(s[1]), str(n)]))
+            if synononymous(s[0], r):
+                printout(",".join(['syn', s[0], r, str(s[1]), str(n)]))
+            if antonymous(s[0], r):
+                printout(",".join(['ant', s[0], r, str(s[1]), str(n)]))
+            if holonymous(s[0], r):
+                printout(",".join(['holo', s[0], r, str(s[1]), str(n)]))
+            if meronymous(s[0], r):
+                printout(",".join(['mero', s[0], r, str(s[1]), str(n)]))
+            if not hit:
+                printout(",".join(['none', s[0], r, str(s[1]), str(n)]))
     except KeyError:
         print printout(",".join(['KeyError', r]))
         pass
