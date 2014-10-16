@@ -80,8 +80,8 @@ def get_holonyms(w):
 
 
 def jaccard(a, b):
-    intrsc = len(intersect(a, b))
-    un = len(union(a, b))
+    intrsc = len(set(a).intersection(set(b)))
+    un = len(set(a).union(set(b)))
     if len(a) == 0 and len(b) == 0:
         return 1
     return float(intrsc)/float(un)
