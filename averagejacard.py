@@ -50,20 +50,27 @@ count_holo = []
 count_mero = []
 base = 10
 
-for k in ks:
-    count_syn.append((len([s for s in syn if lessThanK(s, k)]), base))
 
 for k in ks:
-    count_hyper.append((len([s for s in hyper if lessThanK(s, k)]), base))
+    arr = np.array([float(s.split(",")[5]) for s in syn if lessThanK(s, k)])
+    lessthan = np.mean(arr)
+    count_syn.append(lessthan)
 
 for k in ks:
-    count_hypo.append((len([s for s in hypo if lessThanK(s, k)]), base))
+    lessthan = np.mean(np.array([float(s.split(",")[5]) for s in hyper if lessThanK(s, k)]))
+    count_hyper.append(lessthan)
 
 for k in ks:
-    count_holo.append((len([s for s in holo if lessThanK(s, k)]), base))
+    lessthan = np.mean(np.array([float(s.split(",")[5]) for s in hypo if lessThanK(s, k)]))
+    count_hypo.append(lessthan)
 
 for k in ks:
-    count_mero.append((len([s for s in mero if lessThanK(s, k)]), base))
+    lessthan = np.mean(np.array([float(s.split(",")[5]) for s in holo if lessThanK(s, k)]))
+    count_holo.append(lessthan)
+
+for k in ks:
+    lessthan = np.mean(np.array([float(s.split(",")[5]) for s in mero if lessThanK(s, k)]))
+    count_mero.append(lessthan)
 
 
 count_syn = tuple(count_syn)
@@ -117,4 +124,4 @@ plt.xticks(index + bar_width, ('<5', '<10', '<50', '<100', '<1000'))
 plt.legend(loc=2)
 
 plt.tight_layout()
-plt.savefig('All.png', bbox_inches='tight', pad_inches=.4)
+plt.savefig('jacard.png', bbox_inches='tight', pad_inches=.4)
