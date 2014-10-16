@@ -1,0 +1,239 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>Chapter 4 - Measuring Similarity and Distance</title>
+    <link rel="stylesheet" type="text/css" href="../css/book-style.css">
+  </head>
+
+  <body>
+    <h1 align=center>Chapter 4. Measuring Similarity and Distance</h1>
+
+<p>
+
+So far we have considered sets of objects, and relationships between
+these objects such as the symmetric relationships in the graph model
+of Chapter 2, and the asymmetric or vertical relationships of the
+concept hierarchies in Chapter 3.  We have started to feel our way
+around a graph or a hierarchy, following chains of relationships and
+learning about the shape of the space in the vicinity of a few
+interesting example words.
+
+<p>
+We have still said very little about <i>measuring</i> these
+relationships. In building the graph we considered how much weight
+should be given to each link, and gave some rules of thumb for ranking
+links. When using WordNet, we wanted to give greater significance to
+the relationship between <i>oak</i> and <i>tree</i> than to the
+relationship between <i>oak</i> and <i>living thing</i>, because
+<i>oak</i> is closer to <i>tree</i> that it is to <i>living thing</i>.
+
+<p>
+In order to obtain more general results, we need to be able to compare
+relationships more systematically. One of the most tried and tested
+mathematical techniques for doing this is to measure the
+<i>distance</i> between two points. Conversely, we might try to
+measure the <i>similarity</i> between two points (small distances
+corresponding to large similarities and large distances corresponding
+to small similarities).
+
+<p>
+This chapter introduces some of the ways that have been used to
+measure distances and similarities in mathematical spaces such as
+graphs and hierarchies. The most standard distance measures in
+mathematics are called <i>metrics</i>, which must satisfy certain
+conditions or <i>axioms</i> (such as being symmetric).
+
+<p>
+However, we must also pay great care to testing whether these
+mathematical techniques are actually appropriate when we're dealing
+with language. For example, we shall see that some of the properties
+of metrics are not always ideal for describing distances between words
+and concepts, and this chapter presents a few case studies in what can
+go wrong if we are not very careful and sensitive to the goal of our
+work, which is not using mathematical ideas of distance but inferring
+similarity of meaning in natural language.
+
+<p>
+Measuring similarity between words can enable us to build whole
+classes of words with similar semantic properties --- sets of words
+which are all <i>tools</i> or all <i>musical instruments</i>, for example
+--- and we demonstrate that the graph model of Chapter
+<i>graph-chapter</i> can be used for this purpose very successfully,
+provided we show great care in the presence of ambiguous words.
+Ambiguous words can sometimes behave like <i>semantic wormholes</i>,
+accidentally transporting us from one area of meaning to another.  But
+we can also use this effect positively, because finding those words
+which have this strange wormhole effect when measuring distances helps
+us to recognize which words are ambiguous in the first place.
+
+<hr>
+
+<h2>Sections</h2>
+
+<h4>1. Distance Functions</h4>
+
+This section introduces the idea of a distance function -- a number
+that is assigned to a pair of points in a space which indicates how
+far those points are from one another. A distance function is called a
+<i>metric</i> if it is always positive (except when measuring the
+distance from any point to itself, which must be zero), if it is
+always symmetric (no one way streets), and if it permits no short-cuts
+or wormholes.
+
+<p>
+
+Distance functions depend on the space you're working in -- one may
+choose different ways of measuring distance that are appropriate for
+different applications. (For example, people often quote driving
+distances in minutes rather than miles because it is often the more
+relevant consideration.)
+
+<p>
+
+We consider shortest paths in graphs and the Euclidean distance (given
+by Pythagoras theorem) as examples.
+
+<h4>2. Similarity Measures</h4>
+
+A similarity measure is the converse of a distance
+function. Similarity functions take a pair of points and return a
+large similarity value for nearby points, a small similarity value for
+distant points. One way to tranform between a distance function and a
+similarity measure is to take the reciprocal, the standard method for
+tranforming between resistance and conductance in physics and
+electronics.
+
+<p>
+
+The cosine measure is a very important similarity measure for points
+in the plane (and in higher dimensions as we shall see later in the
+book). The cosine measure assigns a high similarity to points that are
+in the same direction from the origin, zero similarity to points that
+are perpendicular to one another, and negative similarity for those
+that are pointing in opposing directions to one another.
+
+<p>
+
+This section also describes interesting similarity and distance
+measures that have been used to compare words in a taxonomy.
+
+<h4>3. Which Distance Axioms are Appropriate for Word Meanings?</h4>
+
+Mathematical laws used to describe behaviour on one domain are not
+always appropriate in other domains, and there are long-standing
+psychological objections to the axioms used to define a distance
+metric. For example, a metric will always give the same distance from
+<i>a</i> to <i>b</i> as from <i>b</i> to <i>a</i>, but in practice we
+are more likely to say that a child resembles their parent than to say
+that a parent resembles their child.
+
+<p>
+
+This section explores some of these objections to the mathematical
+abstraction, and considers ways of measuring distances between words
+that are more sensitive to these psychological objections. In
+particular, by factoring out the overall frequency or popularity of a
+word in a graph, we show that similarities can be measured in the
+word graph of Chapter 2 in a way that models the psychological
+observations much more effectively.
+
+<h4>4. Transitive Relationships</h4>
+
+If <i>A</i> is the same as <i>B</i> and <i>B</i> is the same as
+<i>C</i> then it follows that <i>A</i> is the same as <i>C</i>, right?
+But what if <i>A</i> is similar to <i>B</i> and <i>B</i> is similar to
+<i>C</i>? Then we need to be a lot more careful about making any
+further presumptions. 
+
+<p>
+
+Relationships where you can make inferences like this are called
+transitive (not to be confused with transitive verbs). Some
+relationships in natural language and spatial reasoning are
+transitive, such as the 'is above' relationship. Others are sometimes
+transitive, such as 'is next to'.
+
+<h4>5. Transitivity, Ambiguity and Word-Learning</h4>
+
+This section shows why transitivity is important for word-learning,
+and in particular shows that the transitive assumption is particularly
+dangerous if used carelessly in the vicinity of ambiguous words. 
+
+Ambiguous words are often exceptions to the 'no short-cuts' rule or
+<i>triangle inequality</i> defined by the metric space axioms. A
+word-learning algorithm can accidentally get transported from one area
+of meaning to another by an ambiguous word -- in many ways, ambiguous
+words behave like semantic wormholes in our wordgraph.
+
+<h4>6. Splitting the Semantic Atom</h4>
+
+We can turn this argument around and use it to <i>detect</i> ambiguous
+words. Since the transitive assumption is not valid for ambiguous
+words, we can find nodes around which transitivity is a bad
+assumption, and these often represent ambiguous words.
+
+One way of doing this is to use the curvature measure of <a
+href="http://www.pnas.org/cgi/content/abstract/99/9/5825">Eckmann and
+Moses</a>, which measures the extent to which the neighbours of a node
+in a graph are likely also to be neighbours of one another.
+
+Another way is to use clustering in the graph and to find nodes whose
+neighbours belong to radically different clusters. 
+
+The goal of "splitting the semantic atom" is certainly ambitious and
+complex, but by this point considerable progress has certainly been
+made. Further techniques will be described later in the book.
+
+<hr>
+
+<h2>References and Further Research</h2>
+
+The following paper explains how my colleague Beate Dorow used a
+technique called Markov Clustering to find clusters of words in a
+word-graph signifying different senses of those words. We then used
+the class-labelling technique introduced in Chapter 3 to map these
+empirically-derived senses into WordNet.
+
+<dl><dt>
+Beate Dorow and Dominic Widdows,
+    <A HREF="../../papers/sense-discovery.pdf">
+    Discovering Corpus-Specific Word Senses.</A>
+    <EM>EACL 2003</EM>, Budapest, Hungary.
+ Conference Companion (research notes and demos) pages 79-82.
+</dt></dl>
+
+Even more recently, we discovered that treating <i>links</i> as atomic
+units and aggregating these links to form word-senses is often a much
+more natural approach than trying to split words. This work, along
+with the application of the curvature measure to semantic graphs, is
+presented here in the following paper.
+
+<dl><dt>
+    Beate Dorow, Dominic Widdows, Katerina Ling, Jean-Pierre Eckmann,
+    Danilo Sergi and Elisha Moses.
+       <A
+    HREF="http://infomap.stanford.edu/papers/curvature-links.pdf">
+      Using Curvature and Markov Clustering in Graphs for Lexical
+    Acquisition and Word Sense Discrimination.</A>
+        <EM>MEANING-2005, 2nd Workshop organized by the                         
+      MEANING Project</EM>, February 3rd-4th 2005, Trento, Italy.
+</dt>
+</dl>
+
+
+
+<hr>
+
+<table>
+<tr>                               
+<td>Up to <a href="../index.html">Geometry and Meaning</a></td>
+<td>|</td>
+<td>Back to <a href="./chapter3.html">Chapter 3</a></td>
+<td>|</td>
+<td>On to <a href="./chapter5.html">Chapter 5</a></td>
+</tr>
+</table>
+
+<!-- hhmts end -->
+  </body>
+</html>

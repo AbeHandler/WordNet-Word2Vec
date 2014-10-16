@@ -1,0 +1,212 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>Chapter 2 - The Graph Model: Networks of Concepts </title>
+    <link rel="stylesheet" type="text/css" href="../css/book-style.css">
+  </head>
+
+  <body>
+    <h1 align=center>Chapter 2. The Graph Model: Networks of  Concepts</h1>
+
+<p>
+
+In this chapter we describe the first and simplest of our models for
+the meanings of words, and in particular the meanings of nouns.  By
+observing which pairs of nouns occur together in a large collection of
+texts, we will build and explore a network or <i>graph</i> where each
+noun is represented by a <i>node</i> with <i>links</i> to nouns which
+are similar in meaning. At least, that is the plan, though as we will
+see, the model throws out a few howlers as well as good links.  In
+this way, our case study highlights some of the pitfalls --- and the
+benefits --- of building mathematical models directly from text data,
+and will hopefully raise some questions for the reader about how
+appropriate our model is for representing the meanings of words. As
+with any mathematical model for real-world phenomena, there is a
+trade-off between how exactly we want the model to describe the
+real-world situation, and how difficult the model should be to build
+--- and to a large extent, the balance between these issues is
+mediated by the purpose for which the model is intended.
+
+<p>
+
+Before we describe the graph model itself, we will go through three
+preliminary stages. In Section 2.2, we describe some
+of the resources and tools for natural language processing that form
+a starting point for our investigations, and then in Section
+2.3 we give a very brief introduction to what
+we mean by a graph.  But before either of these, readers may find it
+well worthwhile to consider some of the issues behind defining words
+in terms of their similarities with other words.
+
+<h2>Sections</h2>
+
+<h4>1. Similarities between words</h4>
+
+Is it circular to describe words in terms of the words that they are
+similar to? Of course, but it's certainly useful - so useful that Dr
+Peter Roget used the ides to give us one of the classic reference
+works of all time, the <i>thesaurus</i>. Geometry is all about
+relationships rather than absolute essences, and has no objection at
+all to such an approach. There are many modern versions of the
+thesaurus idea, and in many ways our automatic tools for analysing
+language produce output much more like a thesaurus than a dictionary.
+
+<h4>2. Some Tools and Terminology in Natural Language Processing</h4>
+
+Corpora, types and tokens, part-of-speech tags - and introduction to
+some of the tools of a computational linguist's trade. This material
+is not diffficult to understand, and it is very useful for
+understanding the rest of the book. In particular, a corpus gives us a
+large collection of natural language texts to extract information
+from, and part-of-speech tagging enables us to work out automatically
+which of the words in the corpus are nouns. This is enough information
+for a computer to build a large graph of nouns and the way they are
+related to one another.
+
+<h4>3. What is a Graph?</h4>
+
+The Bridges of Konigsberg, the London Underground, a model of a
+thesaurus or just a collection of nodes and links.
+
+<br><br>
+
+<table align=center border=3>
+<tr>
+<td><image src="../graphics/konigsberg.gif" width=200></td>
+<td><image src="../graphics/tube_map.gif" width=200></td>
+<td><image src="../graphics/grapheg.gif" width=200></td>
+</tr>
+<tr>
+<td align=center><i>The Bridges of Konigsberg</i></td>
+<td align=center><i>The London Tube</i></td>
+<td align=center><i>A simple graph</i></td>
+</tr>
+</table>
+<br>
+
+In a graph, each item is modelled my a <i>node</i>, and its
+relationships with other items is described by a collection of
+<i>links</i>. Leonhard Euler used this idea in the 18th century to
+prove that it is impossible to walk over each bridge in Konigsberg
+once and once only, because more than 2 of the nodes (land masses)
+have an odd number of links (bridges). Since then, graphs have proved
+to be a very simple, very general, and very useful idea.
+
+<h4>4. Building a Graph of Words from Corpus Data</h4> 
+
+Nouns that occur in lists are often related to one another - for
+example, in the sentence 
+
+<br>
+
+<dl><li>
+"Ship laden with nutmeg, cinnamon, cloves or coriander once battled
+the Seven Seas to bring home their precious cargo."
+</li></dl>
+
+the nouns <i>nutmeg</i>, <i>cinnamon</i>, <i>cloves</i> and
+<i>coriander</i> are likely to be related in some way. In general,
+nouns that occur with the words "and", "or", or a comma in between
+them are often related. After extracting such patterns from the
+British National Corpus (100 million words of English text), we had a
+very big graph representing nearly 100,000 nouns and 500,000 links.
+
+ 
+<h4>5. Exploring the graph</h4>
+
+Take a tour! These graphs of countries and their relationships were
+both built just by a computer reading ordinary text.
+
+<br><br>
+    <table border=3>
+      <tr>
+        <td align=center><a href="../graphics/brazil.html" ><img src="../graphics/brazil.gif" width=400pt></a></td>
+        <td align=center><a href="../graphics/poland.html" ><img src="../graphics/poland.gif" width=400pt></a></td>
+      </tr>
+      <tr>
+        <td align=center><a href="../graphics/brazil.html">Words
+                    reached from the <i>Brazil</i> node</a></td>
+        <td align=center><a
+                            href="../graphics/poland.html">Words reached from the <i>Poland</i> node.</a></td>
+      </tr>
+
+    </table>
+
+<br><br>
+
+<h4>6. Symmetric relationships</h4>
+
+Most of these links are "symmetric" in nature - if you see "football
+and cricket" in text it's likely that you could see "cricket and
+football." Many of the relationships we meet later in the book are not
+symmetric.
+
+<h4>7. Idioms and Ambiguous Words</h4>
+
+The graph model even behaves appropriately in the vicinity of an
+ambiguous word or an idiomatic link. Idioms often give rise to link
+between two otherwise separate clusters, giving a "pair of scales"
+shape. Ambiguous words are often nodes sitting between two clusters,
+looking like the knot in the middle of a "bowtie" shape.
+
+<br><br>
+    <table border=3>
+      <tr>
+        <td align=center><a href="../graphics/chalk-cheese.html"><img src="../graphics/chalk-cheese.gif" width=400pt></a></td>
+        <td align=center><a href="../graphics/arms.html"><img src="../graphics/arms.jpg" width=400pt></a></td>
+      </tr>
+      <tr>
+        <td align=center><a href="../graphics/arms.html"><i>Chalk and
+              cheese</i> is an idiomatic link in the graph.</td>
+        <td align=center><a
+                            href="../graphics/arms.html"><i>Arms</i>
+            is an ambigous word in the graph.</a></td>
+      </tr>
+
+    </table>
+
+<br><br>
+
+<hr>
+
+<h3>Examples and Demo</h3>
+
+This chapter contains many example pictures of word-graphs built
+automatically from free text.
+
+<h3>References</h3>
+
+The following papers describe and evaluate this work more technically:
+
+<dl>
+<dt>
+Dominic Widdows and Beate Dorow.
+   <a href="../../papers/lexical-graphs.pdf"> 
+  A Graph Model for Unsupervised Lexical Acquisition.</a>
+    <i>19th International Conference on Computational Linguistics</i>,
+    Taipei, August 2002, pages 1093-1099.
+<p>
+<dt>
+Beate Dorow and Dominic Widdows,
+    <a href="../../papers/sense-discovery.pdf">
+    Discovering Corpus-Specific Word Senses.</a>
+    <i>EACL 2003, Budapest, Hungary 
+ Conference Companion (research notes and demos)</i>  pages 79-82
+</dt>
+</dl>
+
+<hr>
+
+<table>
+<tr>                               
+<td>Up to <a href="../index.html">Geometry and Meaning</a></td>
+<td>|</td>
+<td>Back to <a href="./chapter1.html">Chapter 1</a></td>
+<td>|</td>
+<td>On to <a href="./chapter3.html">Chapter 3</a></td>
+</tr>
+</table>
+
+<!-- hhmts end -->
+  </body>
+</html>

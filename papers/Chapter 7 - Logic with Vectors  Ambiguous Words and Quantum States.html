@@ -1,0 +1,505 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>Chapter 7 - Logic with Vectors: Ambiguous Words and Quantum States</title>
+    <link rel="stylesheet" type="text/css" href="../css/book-style.css">
+  </head>
+
+  <body>
+    <h1 align=center>Chapter 7. Logic with Vectors: Ambiguous Words and Quantum States</h1>
+
+<hr>
+
+As we try to learn and reason about language and its meaning by
+measuring the distributions of points and regions in geometric models,
+a variety of powerful logical operators become available. Many such
+operators correspond to well-known logic gates in computer science,
+and to familiar options in standard user interfaces.
+
+<br>
+
+<p>
+A typical example is shown in Figure 7.1.  In
+many browsers and user interfaces (in the year 2004), if you click on
+one icon and then click on another, the second will become selected
+and this will cancel the selection of the first, and if you click on
+more icons, the one most recently selected becomes the unique active
+icon, overiding previous selections. However, if you hold
+down the CTRL key and then click on two different icons,
+<i>both</i> icons will be selected. And if you hold down the
+SHIFT key and then click, <i>both</i> icons <i>and
+  those in between</i> will be selected. When using these features,
+previous selections are not discarded --- all the icons
+selected while holding down the correct key are combined to give a
+special set of selected items. The processes of combination correspond
+to <i>disjunctions</i> (<i>OR</i> operators or <i>joins</i>) in different
+logics.
+
+<p>
+
+The 'CTRL + click' option is essentially a discrete approach
+which builds a set whose elements are two isolated points. The
+'SHIFT + click' option is a more continuous approach, which
+uses the geometry of the surrounding region, building a set
+consisting of all points contained in the rectangle spanned by the two
+icons the user selected.
+<br>
+
+<table border=3>
+<tr>
+<td align=center >
+<image src="../graphics/folders-ctrl.jpg" align=center border=1 width=200>
+</td>
+<td align=center >
+<image src="../graphics/folders-shift.jpg" border=1 width=200>
+</td>
+</tr>
+<tr>
+<td>Holding down CTRL and clicking on <i>Folder 1</i> and <i>Folder
+6</i> highlights these two folders only</td>.
+<td>Making the same two clicks while pressing SHIFT highlights Folders
+2 to 5 as well</td>
+</tr>
+<tr>
+<td colspan=2 align=center>
+<b>Figure 7.1: <i>The first version is a</i> Boolean
+disjunction<i>, the second is a kind of</i> quantum disjunction</b>
+</td>
+</tr>
+</table>
+
+<p>
+
+This chapter describes these two brands of logic, using the algebra of
+George Boole as the classical example of a discrete (and indeed,
+binary) approach to logic, and the quantum logic of Garrett Birkhoff
+and John von Neumann as the standard example of a continuous
+logic. Geometrically, the differences between these approaches arise
+from the differences between set theory and vector spaces, which form
+the underlying spatial models for Boolean logic and quantum logic
+respectively.
+
+<p>
+
+Because vector spaces provide the spatial model for both quantum logic
+and the Infomap WORDSPACE, it turns out that we can use the same logical
+operators in both. For me, this story began when I implemented a
+vector negation operator in WORDSPACE using the concept of orthogonality,
+just as described by Birkhoff and von Neumann in 1936. This precedent
+was happily brought to my attention by Professor Lawrence Moss of
+Indiana University, as the research evolved.
+
+<p>
+
+Exploring such operations, comparing their effects on document
+retrieval, and piecing together the scientific context of the WORDSPACE
+model proved an interesting journey.  Many historic branches of
+logic, geometry, and the physical sciences became woven
+into the story, and I shall explain how these traditions have been
+used in search engines, especially in WORDSPACE.
+
+<p>
+
+The 'quantum' thread in this chapter stretches from Aristotle's
+description in the <i>Metaphysics</i>, through geometric
+implementations by Euclid, Descartes, and Grassmann, the birth of
+quantum mechanics itself in the early 1900s, and the outward stimulus this
+has provided to areas of logic, philosophy, computation, and
+word sense discrimination.  The quantum idea, and the spatial
+extensions with which it is modelled, is a useful tool both for
+describing the way a particle may be represented by a combination of
+possible pure states, and for describing the way an ambiguous word may
+be represented by a combination of available 'pure' meanings.
+
+<p>
+
+First, for necessary context and contrast, we explore some of the
+traditional combination operations in discrete logical models,
+focussing on the work of George Boole.
+
+<hr>
+
+<h2>Sections</h2>
+
+<h3>1. Boolean Logic and Algebra</h3>
+
+George Boole was a schoolteacher in Lincolnshire, but although he
+couldn't afford to go to college, his research attracted attention and
+he eventually became a Professor in Ireland. He worked on describing
+abstract "Laws of Thought", and would probably have regarded himself
+as more of a cognitive than a computer scientist. Nonetheless, in
+laying the foundations for modern set-theory, he also devised an
+algebra that used only the numbers 0 and 1. His argument was that only
+these two numbers satisfy the equation <i>x</i><sup>2</sup>=<i>x</i>,
+and so only these numbers can be used in an algebra of sets where the
+intersection of any set with itself is simply the set you started
+with.
+
+<p>
+
+About 100 years later, electronic machines were built that could make
+Boole's algebra a reality. Computers were built that could store these
+0s and 1s electronically, and perform logical operations on them
+exactly as Boole described. These discrete binary operations are
+called Boolean operators to this day, and you can perform a "Boolean
+search" in most information retrieval systems, often using the
+"Advanced Search" feature of an internet search engine. Boolean "logic
+gates" have become so familiar through electronics and computer
+science that it's easy to believe that Boolean logic <i>is</i> logic,
+just as until the 1830's, people believed that Euclidean geometry
+<i>was</i> geometry. But just as there are differently shaped spaces,
+there are differently shaped logics.
+
+<h3>2. Vector Negation in WORDSPACE</h3>
+
+People have often pointed out that "bag-of-words" methods such as
+those used to build WORDSPACE don't normally enable you to negate or
+deny anything, so one our first new challenges for performing logic in
+WORDSPACE was to remove the meaning of an unwanted term. Take the
+following example. You want to find out about formal clothing in New
+York Times articles, and you try the query-term <i>suit</i>. You find
+that <i>suit</i> has the following neighbours in WORDSPACE:
+
+<hr>
+
+<CENTER>
+<TABLE WIDTH="100%" BORDER=0><TR><TD ALIGN="right"><B>Keywords:</B></TD><TD ALIGN="left"><INPUT SIZE="65%" NAME=keywords VALUE="suit">
+</TD>
+</TR>
+<TR><TD ALIGN="right"><B>Negative<BR>Keywords:</B></TD><TD ALIGN="left"><INPUT SIZE="65%" NAME=neg_keywords VALUE="">
+</TD>
+</TR>
+</TABLE>
+<INPUT TYPE=hidden NAME=file_name VALUE=air>
+<INPUT TYPE=hidden NAME=frames VALUE=yes>
+<INPUT TYPE=hidden NAME=top_frame VALUE=>
+<SELECT NAME=corpus>
+<OPTION VALUE=bnc>British National Corpus
+<OPTION VALUE=springer>Medical Abstracts
+<OPTION VALUE=ohsumed> Medline Abstracts
+<OPTION VALUE=nyt SELECTED>New York Times
+<OPTION VALUE=ap>AP-newswire
+<OPTION VALUE=wsj>Wall Street Journal
+</SELECT>
+<SELECT NAME=cmd>
+<OPTION VALUE=associate SELECTED>Related Words
+<OPTION VALUE=search>Retrieve Documents
+</SELECT>
+<SELECT NAME=contrast>
+<OPTION VALUE=nearest SELECTED>Nearest Neighbors
+<OPTION VALUE=clustered>Clustered Results
+<OPTION VALUE=pairs>Contrasting Pairs
+</SELECT>
+</TABLE>
+<HR>
+</TABLE>
+
+<TABLE BORDER=2 WIDTH=50% CELLPADDING=5>
+<TR><TD ALIGN=CENTER BGCOLOR=WHEAT><B>Add to query</B></TD>
+<TD ALIGN=center BGCOLOR=wheat><B>Subtract from query</B></TD>
+<TD BGCOLOR=WHEAT><B>Term</B></TD>
+<TD BGCOLOR=WHEAT><B>Similarity</B></TD></TR>
+<TR><TD ALIGN=center><INPUT TYPE=checkbox NAME=___IN___suit></TD>
+    <TD ALIGN=center><INPUT TYPE=checkbox NAME=___NEG_IN___suit></TD>
+    <TD>suit</TD><TD>1.000000</TD></TR>
+
+<TR><TD ALIGN=center><INPUT TYPE=checkbox NAME=___IN___lawsuit></TD>
+    <TD ALIGN=center><INPUT TYPE=checkbox NAME=___NEG_IN___lawsuit></TD>
+    <TD>lawsuit</TD><TD>0.868791</TD></TR>
+
+<TR><TD ALIGN=center><INPUT TYPE=checkbox NAME=___IN___suits></TD>
+    <TD ALIGN=center><INPUT TYPE=checkbox NAME=___NEG_IN___suits></TD>
+    <TD>suits</TD><TD>0.807798</TD></TR>
+
+<TR><TD ALIGN=center><INPUT TYPE=checkbox NAME=___IN___plaintiff></TD>
+    <TD ALIGN=center><INPUT TYPE=checkbox NAME=___NEG_IN___plaintiff></TD>
+    <TD>plaintiff</TD><TD>0.717156</TD></TR>
+
+<TR><TD ALIGN=center><INPUT TYPE=checkbox NAME=___IN___sued></TD>
+    <TD ALIGN=center><INPUT TYPE=checkbox NAME=___NEG_IN___sued></TD>
+    <TD>sued</TD><TD>0.706158</TD></TR>
+
+</TABLE>
+</CENTER>
+
+<hr>
+
+These words are all about the legal meaning of suit, not the formal
+dress information that you were looking for. To get rid of the
+unwanted legal information, you click on the <b>Subtract from
+query</b> checkbox next to "lawsuit", and send the information again.
+This time you get results about the "formal dress" meaning you were looking
+    for, as you can see below.
+
+<hr>
+
+<CENTER>
+<TABLE WIDTH="100%" BORDER=0><TR><TD ALIGN="right"><B>Keywords:</B></TD><TD ALIGN="left"><INPUT SIZE="65%" NAME=keywords VALUE="suit">
+</TD>
+</TR>
+<TR><TD ALIGN="right"><B>Negative<BR>Keywords:</B></TD><TD ALIGN="left"><INPUT SIZE="65%" NAME=neg_keywords VALUE="lawsuit">
+</TD>
+</TR>
+</TABLE>
+<INPUT TYPE=hidden NAME=file_name VALUE=air>
+<INPUT TYPE=hidden NAME=frames VALUE=yes>
+<INPUT TYPE=hidden NAME=top_frame VALUE=>
+<SELECT NAME=corpus>
+<OPTION VALUE=bnc>British National Corpus
+<OPTION VALUE=springer>Medical Abstracts
+<OPTION VALUE=ohsumed> Medline Abstracts
+<OPTION VALUE=nyt SELECTED>New York Times
+<OPTION VALUE=ap>AP-newswire
+<OPTION VALUE=wsj>Wall Street Journal
+</SELECT>
+<SELECT NAME=cmd>
+<OPTION VALUE=associate SELECTED>Related Words
+<OPTION VALUE=search>Retrieve Documents
+</SELECT>
+<SELECT NAME=contrast>
+<OPTION VALUE=nearest SELECTED>Nearest Neighbors
+<OPTION VALUE=clustered>Clustered Results
+<OPTION VALUE=pairs>Contrasting Pairs
+</SELECT>
+<HR>
+</TABLE>
+
+<TABLE BORDER=2 WIDTH=50% CELLPADDING=5>
+<TR><TD ALIGN=CENTER BGCOLOR=WHEAT><B>Add to query</B></TD>
+<TD ALIGN=center BGCOLOR=wheat><B>Subtract from query</B></TD>
+<TD BGCOLOR=WHEAT><B>Term</B></TD>
+<TD BGCOLOR=WHEAT><B>Similarity</B></TD></TR>
+<TR><TD ALIGN=center><INPUT TYPE=checkbox NAME=___IN___pants></TD>
+    <TD ALIGN=center><INPUT TYPE=checkbox NAME=___NEG_IN___pants></TD>
+    <TD>pants</TD><TD>0.810573</TD></TR>
+
+<TR><TD ALIGN=center><INPUT TYPE=checkbox NAME=___IN___shirt></TD>
+    <TD ALIGN=center><INPUT TYPE=checkbox NAME=___NEG_IN___shirt></TD>
+    <TD>shirt</TD><TD>0.807780</TD></TR>
+
+<TR><TD ALIGN=center><INPUT TYPE=checkbox NAME=___IN___jacket></TD>
+    <TD ALIGN=center><INPUT TYPE=checkbox NAME=___NEG_IN___jacket></TD>
+    <TD>jacket</TD><TD>0.795674</TD></TR>
+
+<TR><TD ALIGN=center><INPUT TYPE=checkbox NAME=___IN___silk></TD>
+    <TD ALIGN=center><INPUT TYPE=checkbox NAME=___NEG_IN___silk></TD>
+    <TD>silk</TD><TD>0.781623</TD></TR>
+
+<TR><TD ALIGN=center><INPUT TYPE=checkbox NAME=___IN___dress></TD>
+    <TD ALIGN=center><INPUT TYPE=checkbox NAME=___NEG_IN___dress></TD>
+    <TD>dress</TD><TD>0.778841</TD></TR>
+
+<TR><TD ALIGN=center><INPUT TYPE=checkbox NAME=___IN___trousers></TD>
+    <TD ALIGN=center><INPUT TYPE=checkbox NAME=___NEG_IN___trousers></TD>
+    <TD>trousers</TD><TD>0.771312</TD></TR>
+
+</TABLE>
+</CENTER>
+
+<hr>
+
+Notice that this hasn't just removed the single word "suit" from the
+results (which would be the effect of a Boolean negation
+operation). It has removed all sorts of words from this area of
+meaning, and even deprecated the highly ambiguous word "suit" below
+the less ambiguous "shirt". If you select the "Retrieve Documents"
+option you'll find that the topics covered are exactly those you were
+looking for - formal dress - and that the occurences of the word
+"suit" in these documents is much more likely to be the meaning you
+were looking for. 
+
+<p>
+
+All of this is happening by manipulating vectors in WORDSPACE so that
+they are perpendicular or <i>orthogonal</i> to one another. Move the
+vectors so that they are at right angles to one another, and you
+effectively make the meanings of two word-vectors irrelevant to one
+another.
+
+
+<h3>3. Ambiguity and the Quantum</h3>
+
+<table align=right width=20% border=2>
+<tr><td>
+<image src="../graphics/double-slit.gif" width=300>
+</td</tr>
+
+<tr><td>
+A single particle emitted from <i>E</i> can interfere with itself
+as though it is a wave that has passed through the slits at both
+<i>A</i> and <i>B</i>. But if you observe which slit the particle has
+gone through, this interference doesn't happen!
+</td</tr>
+
+</table>
+
+In language, a written word like "suit" could potentially be
+signifying one of several meanings and until you see the word in
+context, it doesn't make sense to ask "Which meaning is the true one?"
+
+<p>
+
+In quantum mechanics, a single particle could potentially be in one of
+several <i>pure states</i>, and until you make an observation of the
+particle, it doesn't make sense to claim that it is in one state or
+another (though you can predict that some states are on the whole more
+likely than others).
+
+<p>
+
+A famous experiment that demonstrated this amazing behaviour is the
+<b>double-slit experiment</b>, which is described briefly in the
+diagram on the right. It appears that the particle behaves like a
+wave, one component of which went through <i>A</i> and another through
+<i>B</i>. Until you observe the particle, all you can predict is that
+the particle will be represented by some linear combination of pure
+states, which is expressed as a vector <i>&lambda A</i> + <i>&mu B</i>.
+
+<p>
+
+The equations that are used to represent these particles are exactly
+the same as those used to represent an ambiguous word in WORDSPACE, and
+the projection equation used to remove an unwanted meaning from a word
+in Section 2 is exactly the same as the equation used in quantum
+mechanics to obtain the pure states of a particle from the observed
+interference patterns.
+
+<h3>4. From points to lines and planes</h3> 
+
+This section explains the mathematics needed to take this model from
+two states, one of which we want to remove, to many states, several of
+which we want to remove. The geometry needed to remove 2 unwanted
+meanings was described by Euclid as early as 300 BC. The unwanted
+meanings generate a plane, and the final query must be orthogonal to
+this plane.  Algebraically, the expression <i>&lambda A</i> + <i>&mu
+B</i> we met in the previous section can be used to describe any of
+the points in such a plane, and by implementing operations based upon
+such equations we can implement Euclid's ancient instructions directly
+in WORDSPACE.
+
+<p>
+
+This enables a user to strip away unwanted meanings in succession and
+zoom in on a region in WORDSPACE. When tested in document retrieval
+experiments, this method removed not only the unwanted keywords, but
+many more of their neighbours in WORDSPACE and their synonyms in WordNet
+than was achieved by the alternative Boolean operators. 
+
+<h3>5. Subspaces of higher dimension</h3>
+
+The futher techniques and the extra dimensions need to remove any
+number of meanings are all described in the 1862
+<i>Ausdehnungslehre</i> (Extension Theory) of Hermann Grassmann, an
+amazing German schoolteacher. His mathematical ideas were neglected by
+professionals at the time, and while this was a loss for mathematics
+(many of Grassmann's discoveries were ignored at the time and
+rediscovered only later), it was a gain for linguistics.  Frustrated
+by stuffy formalism, Grassmann turned his attention to Indo-European
+linguistics, compiled a dictionary of Sanskrit that is still used by
+German-speaking scholars today, and discovered certain laws of
+sound-change in language that demonstrated that no currently existing
+language was the unique root of the Indo-European group. Around the
+same time that Darwin discovered that all species undergo change,
+Grassmann demonstrated that the same is true for languages.
+
+<h3>6. Quantum Logic and beyond</h3>
+
+This final section discusses the full picture of Quantum Logic. This
+logic was introduced by Garrett Birkhoff, the founder of modern
+lattice theory, and John von Neumann, the founder of modern computer
+architecture, in an little-known paper they published in 1935. AND, OR, and NOT
+operators can all be defined and built in a vector space such as
+WORDSPACE, and these are the natural logical operations in this space,
+just as the Boolean logic gates are the natural logical operations for
+set theory. Classical set theory is binary and discrete, and vector
+spaces are smooth and continuous, and these properties are reflected
+in the logics that arise in these spaces.
+
+<p>
+
+You find this difference between continuous and discrete
+interpretations of logic in very simple sentences. If somebody says
+"you should take bus 60 or bus 70", and you later discover that they
+meant you to take bus 67, you would think you had been very badly
+advised. If, however, you were told that the journey would take "60 or
+70 minutes", and it took 67 minutes, you would agree that you had been
+advised perfectly wisely. This is just like the difference between
+'CTRL + click' and 'SHIFT + click' in the diagram at the beginning of
+this chapter.
+
+<h3>Conclusion</h3>
+
+The logic of WORDSPACE (described recently) and the logic of quantum
+mechanics (described in 1935) both arise from the same model, the
+vector spaces that Grassmann introduced in 1862.
+
+<hr>
+<h2>Demo</h2>
+
+Quantum logical operations including vector negation can be
+experimented with using the "Remove from query" or "Negative keywords"
+options on the Infomap demo (no longer operational) and the
+<a href="http://code.google.com/p/semanticvectors/wiki/VectorNegation">Semantic Vectors</a>
+package.
+                            
+<hr>
+
+<h2>References</h2>
+
+One book I wish had been published at the time I was writing <i>Geometry and
+Meaning</i> is <a href="http://ir.dcs.gla.ac.uk/GeometryOfIR/">The
+Geometry of Information Retrieval</a>, by C.J. van Rijsbergen. For
+those wishing to delve into the topics of vector spaces, observations,
+and the relationship between information retrieval and quantum theory
+on a deeper level, I recommend this book.
+
+<p>
+
+The following paper describes the quantum connectives and their
+semantic properties in more detail.
+
+<p>
+
+<dl>
+<DT> Dominic Widdows and Stanley Peters.
+    <A
+    HREF="../../papers/quantum-senses.pdf"> Word
+Vectors and Quantum Logic: Experiments with negation and
+disjunction.</A> <EM>Eighth Mathematics of Language
+Conference</EM>, Bloomington,
+    Indiana, June 20-22, 2003, pages 141-154.
+</dt>
+</dl>
+<P>
+
+
+The following paper describes the implementation of the quantum
+negation operators in WORDSPACE and evaluates their statistical
+performance in document retrieval experiments.
+
+<DL>
+    <DT> Dominic Widdows.
+    <A
+    HREF="../../papers/negation-ir.pdf">
+    Orthogonal Negation in Vector Spaces for Modelling Word-Meanings and
+  Document Retrieval.</A>
+<EM>41st Annual Meeting of the Association for Computational
+Linguistics</EM>, Sapporo, Japan, July 7-12, 2003, pages 136-143.
+</DT>
+</dl>
+
+<hr>
+
+<table>
+<tr>                               
+<td>Up to <a href="../index.html">Geometry and Meaning</a></td>
+<td>|</td>
+<td>Back to <a href="./chapter6.html">Chapter 6</a></td>
+<td>|</td>
+<td>On to <a href="./chapter8.html">Chapter 8</a></td>
+</tr>
+</table>
+
+<!-- hhmts end -->
+  </body>
+</html>

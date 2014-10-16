@@ -1,0 +1,267 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>Chapter 3 - The Vertical Direction: Concept Hierarchies </title>
+    <link rel="stylesheet" type="text/css" href="../css/book-style.css">
+  </head>
+
+  <body>
+    <h1 align=center>Chapter 3. The Vertical Direction: Concept Hierarchies. </h1>
+
+
+The previous chapter demonstrated a technique whereby a computer, with
+a very little knowledge of the way English works, can tell us that
+<i>hungary, poland, romania, bulgaria</i> and <i>czechoslovakia</i> are
+all related. So far so good, but this begs the question, <i>what are
+they</i>? The next step would be to have a technique for working out that
+they are all European countries. Something like the following
+    interactive demo (now deprecated):
+
+<hr>
+
+<TABLE align=center>
+<TR><TD ALIGN=right>List of words (nouns):
+  </TD>
+  <TD ALIGN=left><INPUT TYPE=text NAME=args SIZE=60% VALUE="
+hungary poland romania bulgaria czechoslovakia  "</TD>
+    <TD><INPUT TYPE=submit VALUE="Send"></TD>
+</TR>
+</TABLE>
+</CENTER>
+
+<TABLE align=center BORDER=10>
+<TR><TD bgcolor="wheat"><B>Class Label</B>
+    <TD bgcolor="wheat"><B>Score</B>
+</TR>
+<TR><TD>European country, European nation
+</TD><TD> 3.500</TD></TR>
+<TR><TD>Balkan country, Balkan nation, Balkans, Balkan state
+</TD><TD> 1.250</TD></TR>
+<TR><TD>country, state, land, nation
+</TD><TD> 0.972</TD></TR>
+<TR><TD>administrative district, administrative division, territorial division
+</TD><TD> 0.458</TD></TR>
+<TR><TD>district, territory
+</TD><TD> 0.268</TD></TR>
+<TR><TD>region
+</TD><TD> 0.176</TD></TR>
+<TR><TD>location
+</TD><TD> 0.124</TD></TR>
+<TR><TD>object, physical object
+</TD><TD> 0.092</TD></TR>
+<TR><TD>entity, something
+</TD><TD> 0.072</TD></TR>
+<TR><TD></TD><TD>
+</TD></TR>
+</TABLE>
+<p><i>Produced by the Infomap group, CSLI, Stanford University</i>
+
+<hr>
+
+<p>
+
+Or if we want to know what <i>cheese</i> and its top five neighbours
+<i>butter, milk, meat, bread, wine</i> from the left hand cluster in
+Figure 2.6 have in common, we would like to be able to take these
+words and classify them as follows:
+
+<CENTER>
+<TABLE>
+<TR><TD ALIGN=right>List of words (nouns):
+  </TD>
+  <TD ALIGN=left><INPUT TYPE=text NAME=args SIZE=60% VALUE="
+cheese butter milk meat bread wine  "</TD>
+    <TD><INPUT TYPE=submit VALUE="Send"></TD>
+</TR>
+</TABLE>
+</CENTER>
+
+<center>
+<TABLE align=center BORDER=10>
+<TR><TD bgcolor="wheat"><B>Class Label</B>
+    <TD bgcolor="wheat"><B>Score</B>
+</TR>
+<TR><TD>foodstuff, food product
+</TD><TD> 2.500</TD></TR>
+<TR><TD>dairy product
+</TD><TD> 2.250</TD></TR>
+<TR><TD>food, nutrient
+</TD><TD> 0.944</TD></TR>
+<TR><TD>substance, matter
+</TD><TD> 0.472</TD></TR>
+<TR><TD>object, physical object
+</TD><TD> 0.334</TD></TR>
+<TR><TD>beverage, drink, drinkable, potable
+</TD><TD> 0.250</TD></TR>
+<TR><TD>entity, something
+</TD><TD> 0.248</TD></TR>
+<TR><TD>money
+</TD><TD>-0.250</TD></TR>
+<TR><TD>combatant, battler, belligerent, fighter, scrapper
+</TD><TD>-0.250</TD></TR>
+<TR><TD>baked good, baked goods
+</TD><TD>-0.250</TD></TR>
+<TR><TD>dark red
+</TD><TD>-0.250</TD></TR>
+<TR><TD></TD><TD>
+</TD></TR>
+</TABLE>
+</center>
+<p><i>Produced by the <a href="http://infomap.stanford.edu">Infomap group</a>, CSLI, Stanford University</i>
+
+<hr>
+
+<p>
+
+Needless to say, there is an algorithm behind this class labelling
+trick, and it relies on a lot of careful work by many Princeton
+students over many years. The goal of this chapter is to describe this
+work and the mathematical ideas behind it. The algorithm
+itself is running <a href="http://infomap.stanford.edu/classes">here</a> and you're
+welcome to try it out for yourself. Two of the most important
+characters in this story --- Aristotle and Darwin --- are not usually
+thought of as mathematicians at all, but nonetheless they described
+their ideas using mathematical models which were, if anything, far
+ahead of their time.
+
+<p>
+
+The idea is that concepts can be arranged into a <i>hierarchy</i>,
+a tree of meaning whose trunk and branches correspond to <i>general</i>
+concepts and whose twigs and leaves correspond to particular or 
+<i>specific</i> concepts. We shall see that there are many examples of this
+sort of structure in common use, from the famous 'Tree of Life' to
+postal addresses and computer file systems. If the symmetric
+relationships of the previous chapter can be thought of as level or
+horizontal in character, the relationship between a child-node and a
+parent-node in a hierarchy (most clearly exemplified in the
+relationship between a species and its genus in the Tree of Life) can
+be thought of as a vertical relationship.
+
+<hr>
+
+<h2>Sections</h2>
+
+<h4>1. Phylogeny, or the Tree of Life</h4>
+
+This section describes the way Aristotle and later Charles Darwin used
+the idea of a tree to describe the way a species inherits properties
+from its genus. Such a structure is called a <i>taxonomy</i>.
+
+<h4>2. Directed Relationships</h4>
+
+Such a collection of relationships can be represented as another kind
+of graph, but now the links in the graph are directed rather than
+symmetric. A good example of a graph with directed links is the world
+wide web, in which the link structure can be used to give an estimated
+measure of the popularity of different webpages. This is how Google's
+original <i>PageRank</i> algorithm worked.
+
+<h4>3. Antisymmetric Relationships and Trees</h4>
+
+The relationships in trees are not only directed, they are
+    <i>antisymmetric</i> - if <i>A</i> is an ancestor of <i>B</i> then
+    <i>B</i> cannot be an ancestor of <i>A</i>.
+
+<h4>4. Representing Linguistic Meaning in Trees</h4>
+
+The idea of using a tree to represent meaning in language goes back to
+Aristotle's <i>Categories</i>, a tradition that was followed by many
+philosophers and artists. 
+
+<br><br>
+
+<table align=center border=3>
+<tr><td align=center>
+<image src="../graphics/porphyry.jpg" width=300>
+</td></tr> <tr><td align=center width=300>The <i>Tree of Porphyry</i>,
+one of the earliest examples of a concept hierarchy. From the ceiling
+fresco at Schussenried, Germany, by Franz Georg Herrmann (1757),
+photograph by <a
+href="http://www.library.northwestern.edu/collections/garrett/">Jeffrey
+Garrett</a> (Northwestern University Library, October 2000).</td></tr>
+</table>
+
+<br><br>
+
+Nowadays linguists use parse-trees to
+represent grammatical structure of sentences, and semantic knowledge
+bases contain taxonomies which are directly descended from Aristotle's
+work.
+
+<h4>5. WordNet</h4>
+
+The most widely available linguistic taxonomy is the Princeton <a
+href="http://www.cogsci.princeton.edu/~wn/">WordNet</a>.
+
+<br><br>
+
+<table align=center border=3>
+<tr><td align=center>
+<image src="../graphics/wordnet.gif" width=600>
+</td></tr>
+<tr><td align=center width=600>Some of the uppermost nodes (major categories) in
+            the WordNet noun taxonomy.
+</td></tr>
+</table>
+
+<br><br>
+
+WordNet has separate taxonomies for nouns and verbs, and organizes
+modifiers (such as adjectives) into pairs of antonyms or
+opposites. The insight that substances and actions often lack
+'contraries' or antonyms, but that qualities normally have contraries,
+is found explicitly in Aristotle's <i>Categories</i>
+
+<h4>6. Finding class labels: Mapping collections of words into
+WordNet</h4>
+
+Coming full circle, this section describes the way we can use WordNet
+to give a probably class label for a whole list of words. 
+
+<br><br>
+
+<table align=center border=3>
+<tr><td align=center>
+<image src="../graphics/countries-label.gif" width=600>
+</td></tr>
+<tr><td align=center>The neighbours of <i>Poland</i> that we found in
+            Chapter 2 are now classified as <i>European Countries</i></td></tr>
+</table>
+
+<br><br>
+
+<hr>
+
+<h3>References</h3>
+
+The most important reading for this chapter is Aristotle's <a
+href="http://classics.mit.edu/Aristotle/categories.html"><i>Categories</i></a>.
+
+<p>
+
+The following paper describes and evaluates the class-labelling work more technically:
+
+<dl><dt>
+Dominic Widdows.
+    <a
+    href="../../papers/enrich-taxonomies.pdf">
+    Unsupervised methods for developing taxonomies by combining
+    syntactic and statistical information.</a> In <i>Proceedings of
+    HLT/NAACL 2003</i>, Edmonton, Canada, June 2003, pages 276-283.
+</dl></dt>
+<hr>
+
+<table>
+<tr>                               
+<td>Up to <a href="../index.html">Geometry and Meaning</a></td>
+<td>|</td>
+<td>Back to <a href="./chapter2.html">Chapter 2</a></td>
+<td>|</td>
+<td>On to <a href="./chapter4.html">Chapter 4</a></td>
+</tr>
+</table>
+
+<!-- hhmts end -->
+  </body>
+</html>
