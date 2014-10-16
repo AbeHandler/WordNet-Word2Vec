@@ -13,80 +13,54 @@ args = vars(parser.parse_args())
 
 verbose = args['verbose'] > 0
 
-def same_stem(one, two):
-	if stemmer.stem(one) == stemmer.stem(two):
-		return True
-	else:
-		return False
-
+'''
+def translatePOS(pos):
+    if pos == "verb":
+        return wn.VERB
+    return None
 
 def getAntonyms(ss):
-	for l in ss.lemmas():
-		if len(l.antonyms()) > 0:
-			return [stemmer.stem(l.name()) for l in l.antonyms()]
-		return []
-
-
-def intersect(a, b):
-    """ return the intersection of two lists """
-    return list(set(a) & set(b))
-
-
-def union(a, b):
-    """ return the intersection of two lists """
-    return list(set(a.union(set(b)))
-
-
-def translatePOS(pos):
-	if pos == "verb":
-		return wn.VERB
-	return None
-
-
-def getSynsets(word, pos=None):
-	if pos:
-		return wn.synsets(word, pos=pos)
-	else:
-		return wn.synsets(word)
-
-
-def synononymous(worda, wordb, jaccard=False):
-    intersection = intersect(getSynsets(worda), getSynsets(wordb))
-    if verbose:
-        for i in intersection:
-            print i.definition()
-            print i.examples()
-    if len(intersection) > 0:
-        return True
-    return False
+    for l in ss.lemmas():
+        if len(l.antonyms()) > 0:
+            return [stemmer.stem(l.name()) for l in l.antonyms()]
+        return []
 
 
 def antonymous(a, b, jaccard=False):
-	synsets_a = getSynsets(a)
-	total_antonyms_a = []
+    synsets_a=wn.synsets(a)
+    total_antonyms_a=[]
 
-	for a in synsets_a:
-		total_antonyms_a.extend(getAntonyms(a))
-	if stemmer.stem(b) in total_antonyms_a:
-		return True
-	return False
-
-
-def jaccard(a, b):
-    intersection = intersect(a, b)
-    union = union(a, b)
-    return len(intersection)/len(union)
-
-
-def not_in_wordnet(w):
-    syns = getSynsets(w)
-    if len(syns) == 0:
+    for a in synsets_a:
+        total_antonyms_a.extend(getAntonyms(a))
+    if stemmer.stem(b) in total_antonyms_a:
         return True
     return False
+'''
+
+
+def same_stem(one, two):
+    if stemmer.stem(one) == stemmer.stem(two):
+        return True
+    else:
+        return False
+
+
+""" return the intersection of two lists """
+
+
+def intersect(a, b):
+    return set(a) & set(b)
+
+
+""" return the intersection of two lists """
+
+
+def union(a, b):
+    return set(a).union(set(b))
 
 
 def get_meronyms(w):
-    syns = getSynsets(w)
+    syns = wn.synsets(w)
     out = []
     for s in syns:
         out.extend([s for s in s.member_meronyms()])
@@ -96,7 +70,7 @@ def get_meronyms(w):
 
 
 def get_holonyms(w):
-    syns = getSynsets(w)
+    syns = wn.synsets(w)
     out = []
     for s in syns:
         out.extend([s for s in s.member_holonyms()])
@@ -105,35 +79,54 @@ def get_holonyms(w):
     return set(out)
 
 
-def hyoponomous(a, b, jaccard=False):
-    synsets_a = getSynsets(a)
+def jaccard(a, b):
+    intrsc = len(intersect(a, b))
+    un = len(union(a, b))
+    if len(a) == 0 and len(b) == 0:
+        return 1
+    return float(intrsc)/float(un)
+
+
+def not_in_wordnet(w):
+    syns = wn.synsets(w)
+    if len(syns) == 0:
+        return True
+    return False
+
+
+def synononymous(worda, wordb):
+    return jaccard(wn.synsets(worda), wn.synsets(wordb))
+
+
+def hyoponomous(a, b):
+    synsets_a = wn.synsets(a)
 
     hyponyms = []
     for a in synsets_a:
         hyponyms.extend(a.hyponyms())
 
-    synsets_b = getSynsets(b)
+    synsets_b = wn.synsets(b)
     return jaccard(hyponyms, synsets_b)
 
 
-def hypernomous(a, b, jaccard=False):
-    synsets_a = getSynsets(a)
+def hypernomous(a, b):
+    synsets_a = wn.synsets(a)
 
     hypernyms = []
     for a in synsets_a:
         hypernyms.extend(a.hypernyms())
 
-    synsets_b = getSynsets(b)
+    synsets_b = wn.synsets(b)
     return jaccard(hypernyms, synsets_b)
 
 
-def meronymous(a, b, jaccard=False):
-    syn_a = getSynsets(a)
+def meronymous(a, b):
+    syn_a = wn.synsets(a)
     syn_b = get_meronyms(b)
     return jaccard(syn_a, syn_b)
 
 
-def holonymous(a, b, jaccard=False):
-    syn_a = getSynsets(a)
+def holonymous(a, b):
+    syn_a = wn.synsets(a)
     syn_b = get_holonyms(b)
     return jaccard(syn_a, syn_b)

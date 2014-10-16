@@ -1,6 +1,5 @@
 from gensim.models import word2vec
 from wordnetter import synononymous
-from wordnetter import antonymous
 from wordnetter import hypernomous
 from wordnetter import not_in_wordnet
 from wordnetter import holonymous
@@ -69,25 +68,22 @@ for r in words:
                 search = False
                 printout(",".join(['not_in_wordnet', s[0], r, str(s[1]), str(n)]))
             if search:
-                if hypernomous(s[0], r) > 0:
-                    hit = True
-                    printout(",".join(['hyper', s[0], r, str(s[1]), str(n)]))
-                if hyoponomous(s[0], r) > 0:
-                    hit = True
-                    printout(",".join(['hypo', s[0], r, str(s[1]), str(n)]))
-                if synononymous(s[0], r):
-                    hit = True
-                    printout(",".join(['syn', s[0], r, str(s[1]), str(n)]))
-                # if antonymous(s[0], r):
-                #    hit = True
-                #    printout(",".join(['ant', s[0], r, str(s[1]), str(n)]))
-                if holonymous(s[0], r):
-                    hit = True
-                    printout(",".join(['holo', s[0], r, str(s[1]), str(n)]))
-                if meronymous(s[0], r):
-                    hit = True
-                    printout(",".join(['mero', s[0], r, str(s[1]), str(n)]))
-                if not hit:
+                hyper = hypernomous(s[0], r)
+                hypo = hypernomous(s[0], r)
+                syno = synononymous(s[0], r)
+                holo = holonymous(s[0], r)
+                mero = meronymous(s[0], r)
+                if hyper > 0:
+                    printout(",".join(['hyper', s[0], r, str(s[1]), str(n), str(hyper)]))
+                if hypo > 0:
+                    printout(",".join(['hypo', s[0], r, str(s[1]), str(n), str(hypo)]))
+                if syno > 0:
+                    printout(",".join(['syn', s[0], r, str(s[1]), str(n), str(syno)]))
+                if holo > 0:
+                    printout(",".join(['holo', s[0], r, str(s[1]), str(n), str(holo)]))
+                if mero > 0:
+                    printout(",".join(['mero', s[0], r, str(s[1]), str(n), str(mero)]))
+                if (hyper + hypo + syno + holo + mero) == 0:
                     printout(",".join(['none', s[0], r, str(s[1]), str(n)]))
     except KeyError:
         print printout(",".join(['KeyError', r]))
