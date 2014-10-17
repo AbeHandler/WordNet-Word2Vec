@@ -85,13 +85,6 @@ count_hypo = tuple(count_hypo)
 count_holo = tuple(count_holo)
 count_mero = tuple(count_mero)
 
-'''
-print count_syn
-print count_hypo
-print count_hyper
-print count_holo
-print count_mero
-'''
 
 import matplotlib.pyplot as plt
 fig, ax = plt.subplots()
@@ -133,9 +126,9 @@ rects5 = plt.bar(index + .75, count_mero, bar_width,
 
 
 plt.xlabel('K')
-plt.ylabel('log 10 of count')
+plt.ylabel('Average Jacard Distance')
 plt.title('Average Jaccard Distance by Relation Type and K')
-plt.xticks(index + bar_width, ('<5', '<10', '<50', '<100', '<1000'))
+plt.xticks(index + bar_width, ('<200', '200-400', '400-600', '600-800', '>800'))
 plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 
 plt.tight_layout()

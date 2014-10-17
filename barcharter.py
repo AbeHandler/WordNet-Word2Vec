@@ -115,9 +115,9 @@ rects5 = plt.bar(index + .75, count_mero, bar_width,
 
 plt.xlabel('K')
 plt.ylabel('log 10 of count')
-plt.title('Semantic relations in WordNet')
+plt.title('Semantic Similarity in Word2Vec Compared To WordNet')
 plt.xticks(index + bar_width, ('<200', '200-400', '400-600', '600-800', '>800'))
-plt.legend(loc='upper right')
+plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 
 plt.tight_layout()
 plt.savefig('All.png', bbox_inches='tight', pad_inches=.4)
