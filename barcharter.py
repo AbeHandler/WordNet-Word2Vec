@@ -2,7 +2,6 @@
 Bar chart demo with pairs of bars grouped for easy comparison.
 """
 import numpy as np
-import matplotlib.pyplot as plt
 import sys
 import re
 import math
@@ -21,9 +20,9 @@ for line in sys.stdin:
     lines.append(line.replace("\n", ""))
 
 
-def lessThanK(l, k):
+def lessThanGreaterThanK(l, k):
     try:
-        if int(l.split(",")[4]) < k:
+        if (int(l.split(",")[4]) <= k and int(l.split(",")[4]) > floor[k]):
             return True
         return False
     except ValueError:
@@ -38,7 +37,13 @@ mero = [l for l in lines if isIt(l, "^mero")]
 
 n_groups = 5
 
-ks = [5, 10, 50, 100, 1000]
+ks = [200, 400, 600, 800, 1000]
+floor = {}
+floor[200] = 0
+floor[400] = 200
+floor[600] = 400
+floor[800] = 600
+floor[1000] = 800
 
 count_syn = []
 count_hyper = []
@@ -48,19 +53,19 @@ count_mero = []
 base = 10
 
 for k in ks:
-    count_syn.append(math.log(len([s for s in syn if lessThanK(s, k)]), base))
+    count_syn.append(math.log(len([s for s in syn if lessThanGreaterThanK(s, k)]), base))
 
 for k in ks:
-    count_hyper.append(math.log(len([s for s in hyper if lessThanK(s, k)]), base))
+    count_hyper.append(math.log(len([s for s in hyper if lessThanGreaterThanK(s, k)]), base))
 
 for k in ks:
-    count_hypo.append(math.log(len([s for s in hypo if lessThanK(s, k)]), base))
+    count_hypo.append(math.log(len([s for s in hypo if lessThanGreaterThanK(s, k)]), base))
 
 for k in ks:
-    count_holo.append(math.log(len([s for s in holo if lessThanK(s, k)]), base))
+    count_holo.append(math.log(len([s for s in holo if lessThanGreaterThanK(s, k)]), base))
 
 for k in ks:
-    count_mero.append(math.log(len([s for s in mero if lessThanK(s, k)]), base))
+    count_mero.append(math.log(len([s for s in mero if lessThanGreaterThanK(s, k)]), base))
 
 
 count_syn = tuple(count_syn)
@@ -69,6 +74,7 @@ count_hypo = tuple(count_hypo)
 count_holo = tuple(count_holo)
 count_mero = tuple(count_mero)
 
+import matplotlib.pyplot as plt
 fig, ax = plt.subplots()
 
 index = np.arange(n_groups)
@@ -110,8 +116,8 @@ rects5 = plt.bar(index + .75, count_mero, bar_width,
 plt.xlabel('K')
 plt.ylabel('log 10 of count')
 plt.title('Semantic relations in WordNet')
-plt.xticks(index + bar_width, ('<5', '<10', '<50', '<100', '<1000'))
-plt.legend(loc=2)
+plt.xticks(index + bar_width, ('<200', '200-400', '400-600', '600-800', '>800'))
+plt.legend(loc='upper right')
 
 plt.tight_layout()
 plt.savefig('All.png', bbox_inches='tight', pad_inches=.4)

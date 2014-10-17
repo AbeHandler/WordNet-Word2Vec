@@ -2,7 +2,6 @@
 Bar chart demo with pairs of bars grouped for easy comparison.
 """
 import numpy as np
-import matplotlib.pyplot as plt
 import sys
 import re
 import math
@@ -24,9 +23,9 @@ for line in sys.stdin:
     lines.append(line.replace("\n", ""))
 
 
-def lessThanK(l, k):
+def lessThanGreaterThanK(l, k):
     try:
-        if int(l.split(",")[4]) < k:
+        if (int(l.split(",")[4]) <= k and int(l.split(",")[4]) > floor[k]):
             return True
         return False
     except ValueError:
@@ -41,7 +40,14 @@ mero = [l for l in lines if isIt(l, "^mero")]
 
 n_groups = 5
 
-ks = [5, 10, 50, 100, 1000]
+ks = [200, 400, 600, 800, 1000]
+
+floor = {}
+floor[200] = 0
+floor[400] = 200
+floor[600] = 400
+floor[800] = 600
+floor[1000] = 800
 
 count_syn = []
 count_hyper = []
@@ -52,24 +58,24 @@ base = 10
 
 
 for k in ks:
-    arr = np.array([float(s.split(",")[5]) for s in syn if lessThanK(s, k)])
+    arr = np.array([float(s.split(",")[5]) for s in syn if lessThanGreaterThanK(s, k)])
     lessthan = np.mean(arr)
     count_syn.append(lessthan)
 
 for k in ks:
-    lessthan = np.mean(np.array([float(s.split(",")[5]) for s in hyper if lessThanK(s, k)]))
+    lessthan = np.mean(np.array([float(s.split(",")[5]) for s in hyper if lessThanGreaterThanK(s, k)]))
     count_hyper.append(lessthan)
 
 for k in ks:
-    lessthan = np.mean(np.array([float(s.split(",")[5]) for s in hypo if lessThanK(s, k)]))
+    lessthan = np.mean(np.array([float(s.split(",")[5]) for s in hypo if lessThanGreaterThanK(s, k)]))
     count_hypo.append(lessthan)
 
 for k in ks:
-    lessthan = np.mean(np.array([float(s.split(",")[5]) for s in holo if lessThanK(s, k)]))
+    lessthan = np.mean(np.array([float(s.split(",")[5]) for s in holo if lessThanGreaterThanK(s, k)]))
     count_holo.append(lessthan)
 
 for k in ks:
-    lessthan = np.mean(np.array([float(s.split(",")[5]) for s in mero if lessThanK(s, k)]))
+    lessthan = np.mean(np.array([float(s.split(",")[5]) for s in mero if lessThanGreaterThanK(s, k)]))
     count_mero.append(lessthan)
 
 
@@ -79,6 +85,15 @@ count_hypo = tuple(count_hypo)
 count_holo = tuple(count_holo)
 count_mero = tuple(count_mero)
 
+'''
+print count_syn
+print count_hypo
+print count_hyper
+print count_holo
+print count_mero
+'''
+
+import matplotlib.pyplot as plt
 fig, ax = plt.subplots()
 
 index = np.arange(n_groups)
@@ -119,9 +134,9 @@ rects5 = plt.bar(index + .75, count_mero, bar_width,
 
 plt.xlabel('K')
 plt.ylabel('log 10 of count')
-plt.title('Semantic relations in WordNet')
+plt.title('Average Jaccard Distance by Relation Type and K')
 plt.xticks(index + bar_width, ('<5', '<10', '<50', '<100', '<1000'))
-plt.legend(loc=2)
+plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 
 plt.tight_layout()
 plt.savefig('jacard.png', bbox_inches='tight', pad_inches=.4)

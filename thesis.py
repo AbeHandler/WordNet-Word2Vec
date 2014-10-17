@@ -42,7 +42,7 @@ def inStopWords(w):
         return True
     return False
 
-words = random.sample(set(reuters.words()), 10000)
+words = random.sample(set(reuters.words()), 1000)
 
 print len(words)
 
@@ -58,7 +58,7 @@ for r in words:
         if verbose:
             print "word from vocab {}".format(r)
         n = 0
-        sims = model.most_similar(positive=[r], topn=5000)
+        sims = model.most_similar(positive=[r], topn=1000)
         for s in sims:
             n = n + 1
             s = (s[0].encode("ascii", 'ignore'), s[1])
@@ -76,17 +76,17 @@ for r in words:
                 syno = synononymous(s[0], r)
                 holo = holonymous(s[0], r)
                 mero = meronymous(s[0], r)
-                if hyper > 0:
+                if hyper > 0 and hyper < 1:
                     printout(",".join(['hyper', s[0], r, str(s[1]), str(n), str(hyper)]))
-                if hypo > 0:
+                if hypo > 0 and hypo < 1:
                     printout(",".join(['hypo', s[0], r, str(s[1]), str(n), str(hypo)]))
-                if syno > 0:
+                if syno > 0 and syno < 1:
                     printout(",".join(['syn', s[0], r, str(s[1]), str(n), str(syno)]))
-                if holo > 0:
+                if holo > 0 and holo < 1:
                     printout(",".join(['holo', s[0], r, str(s[1]), str(n), str(holo)]))
-                if mero > 0:
+                if mero > 0 and mero < 1:
                     printout(",".join(['mero', s[0], r, str(s[1]), str(n), str(mero)]))
-                if (hyper + hypo + syno + holo + mero) == 0:
+                if (((hyper + hypo + syno + holo + mero) == 0) or ((hyper + hypo + syno + holo + mero) == 5)):
                     printout(",".join(['none', s[0], r, str(s[1]), str(n)]))
     except KeyError:
         print printout(",".join(['KeyError', r]))
