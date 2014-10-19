@@ -53,19 +53,19 @@ count_mero = []
 base = 10
 
 for k in ks:
-    count_syn.append(math.log(len([s for s in syn if lessThanGreaterThanK(s, k)]), base))
+    count_syn.append(len([s for s in syn if lessThanGreaterThanK(s, k)]))
 
 for k in ks:
-    count_hyper.append(math.log(len([s for s in hyper if lessThanGreaterThanK(s, k)]), base))
+    count_hyper.append(len([s for s in hyper if lessThanGreaterThanK(s, k)]))
 
 for k in ks:
-    count_hypo.append(math.log(len([s for s in hypo if lessThanGreaterThanK(s, k)]), base))
+    count_hypo.append(len([s for s in hypo if lessThanGreaterThanK(s, k)]))
 
 for k in ks:
-    count_holo.append(math.log(len([s for s in holo if lessThanGreaterThanK(s, k)]), base))
+    count_holo.append(len([s for s in holo if lessThanGreaterThanK(s, k)]))
 
 for k in ks:
-    count_mero.append(math.log(len([s for s in mero if lessThanGreaterThanK(s, k)]), base))
+    count_mero.append(len([s for s in mero if lessThanGreaterThanK(s, k)]))
 
 
 syn = 0.128765837896
@@ -78,11 +78,11 @@ max_val = max([syn, hypo, hyper, mero, holo])
 
 print max_val
 
-count_syn = tuple([(1/(syn / max_val)) * s for s in count_syn])
-count_hyper = tuple([(1/(hyper / max_val)) * s for s in count_hyper])
-count_hypo = tuple([(1/(hypo / max_val)) * s for s in count_hypo])
-count_holo = tuple([(1/(holo / max_val)) * s for s in count_holo])
-count_mero = tuple([(1/(mero / max_val)) * s for s in count_mero])
+count_syn = tuple([math.log((1/(syn / max_val)) * s, 10) for s in count_syn])
+count_hyper = tuple([math.log((1/(hyper / max_val)) * s, 10) for s in count_hyper])
+count_hypo = tuple([math.log((1/(hypo / max_val)) * s, 10) for s in count_hypo])
+count_holo = tuple([math.log((1/(holo / max_val)) * s, 10) for s in count_holo])
+count_mero = tuple([math.log((1/(mero / max_val)) * s, 10) for s in count_mero])
 
 
 import matplotlib.pyplot as plt
@@ -125,7 +125,7 @@ rects5 = plt.bar(index + .75, count_mero, bar_width,
 
 
 plt.xlabel('K')
-plt.ylabel('log 10 of count')
+plt.ylabel('Log 10 of adjusted count')
 plt.title('Semantic Similarity in Word2Vec Compared To WordNet -- Adjusted')
 plt.xticks(index + bar_width * 5, ('<200', '200-400', '400-600', '600-800', '>800'))
 plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
