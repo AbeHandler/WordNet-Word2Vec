@@ -33,7 +33,7 @@ hypo = [l for l in lines if isIt(l, "^hypo")]
 hyper = [l for l in lines if isIt(l, "^hyper")]
 holo = [l for l in lines if isIt(l, "^holo")]
 mero = [l for l in lines if isIt(l, "^mero")]
-stem = [l for l in lines if isIt(l, "^same stem")]
+
 
 n_groups = 5
 
@@ -49,7 +49,6 @@ count_syn = []
 count_hyper = []
 count_hypo = []
 count_holo = []
-count_stem = []
 count_mero = []
 base = 10
 
@@ -68,16 +67,23 @@ for k in ks:
 for k in ks:
     count_mero.append(math.log(len([s for s in mero if lessThanGreaterThanK(s, k)]), base))
 
-for k in ks:
-    count_stem.append(math.log(len([s for s in stem if lessThanGreaterThanK(s, k)]), base))
 
+syn = 0.128765837896
+hypo = 0.599908659263
+hyper = 0.125228424687
+mero = 0.100856732318
+holo = 0.0452403458359
 
-count_syn = tuple(count_syn)
-count_hyper = tuple(count_hyper)
-count_hypo = tuple(count_hypo)
-count_holo = tuple(count_holo)
-count_mero = tuple(count_mero)
-count_stem = tuple(count_stem)
+max_val = max([syn, hypo, hyper, mero, holo])
+
+print max_val
+
+count_syn = tuple([(1/(syn / max_val)) * s for s in count_syn])
+count_hyper = tuple([(1/(hyper / max_val)) * s for s in count_hyper])
+count_hypo = tuple([(1/(hypo / max_val)) * s for s in count_hypo])
+count_holo = tuple([(1/(holo / max_val)) * s for s in count_holo])
+count_mero = tuple([(1/(mero / max_val)) * s for s in count_mero])
+
 
 import matplotlib.pyplot as plt
 fig, ax = plt.subplots()
@@ -89,46 +95,48 @@ opacity = 0.4
 error_config = {'ecolor': '0.3'}
 
 
-rects1 = plt.bar(index + .1, count_syn, bar_width,
+rects1 = plt.bar(index + .15, count_syn, bar_width,
                  alpha=opacity,
                  color='blue',
                  label='synonyms')
 
-rects2 = plt.bar(index + .2, count_hyper, bar_width,
+rects2 = plt.bar(index + .3, count_hyper, bar_width,
                  alpha=opacity,
                  color='red',
                  label='hypernyms')
 
 
-rects3 = plt.bar(index + .3, count_hypo, bar_width,
+rects3 = plt.bar(index + .45, count_hypo, bar_width,
                  alpha=opacity,
                  color='purple',
                  label='hyponyms')
 
 
-rects4 = plt.bar(index + .4, count_holo, bar_width,
+rects4 = plt.bar(index + .6, count_holo, bar_width,
                  alpha=opacity,
                  color='green',
                  label='holonyms')
 
 
-rects5 = plt.bar(index + .5, count_mero, bar_width,
+rects5 = plt.bar(index + .75, count_mero, bar_width,
                  alpha=opacity,
                  color='orange',
                  label='meronyms')
 
 
-rects6 = plt.bar(index + .6, count_stem, bar_width,
-                 alpha=opacity,
-                 color='yellow',
-                 label='same stem')
-
-
 plt.xlabel('K')
 plt.ylabel('log 10 of count')
-plt.title('Semantic Similarity in Word2Vec Compared To WordNet')
-plt.xticks(index + bar_width * 4, ('<200', '200-400', '400-600', '600-800', '>800'))
+plt.title('Semantic Similarity in Word2Vec Compared To WordNet -- Adjusted')
+plt.xticks(index + bar_width * 5, ('<200', '200-400', '400-600', '600-800', '>800'))
 plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 
+plt.tick_params(
+    axis='x',          # changes apply to the x-axis
+    which='both',      # both major and minor ticks are affected
+    bottom='off',      # ticks along the bottom edge are off
+    top='off',         # ticks along the top edge are off
+    labelbottom='on')
+
 plt.tight_layout()
-plt.savefig('All.png', bbox_inches='tight', pad_inches=.4)
+
+plt.savefig(sys.argv[1] + '.png', bbox_inches='tight', pad_inches=.4)

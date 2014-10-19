@@ -42,7 +42,7 @@ def inStopWords(w):
         return True
     return False
 
-words = random.sample(set(reuters.words()), 1000)
+words = random.sample(set(reuters.words()), 10000)
 
 print len(words)
 
@@ -72,7 +72,7 @@ for r in words:
                 printout(",".join(['not_in_wordnet', s[0], r, str(s[1]), str(n)]))
             if search:
                 hyper = hypernomous(s[0], r)
-                hypo = hypernomous(s[0], r)
+                hypo = hyoponomous(s[0], r)
                 syno = synononymous(s[0], r)
                 holo = holonymous(s[0], r)
                 mero = meronymous(s[0], r)
