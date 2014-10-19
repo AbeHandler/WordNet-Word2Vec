@@ -24,7 +24,7 @@ n, bins, patches = plt.hist(x, color='#BD7CE8', alpha=0.4)
 
 plt.xlabel('k')
 plt.ylabel('Count')
-plt.title(kind.replace("_", " "))
+#plt.title(kind.replace("_", " "))
 plt.grid(True)
 
 plt.savefig(kind+'.png', bbox_inches='tight', pad_inches=.4)

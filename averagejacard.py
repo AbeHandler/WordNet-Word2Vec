@@ -93,33 +93,32 @@ index = np.arange(n_groups)
 bar_width = 0.1
 
 opacity = 0.4
-error_config = {'ecolor': '0.3'}
 
 
-rects1 = plt.bar(index + .15, count_syn, bar_width,
+rects1 = plt.bar(index + .1, count_syn, bar_width,
                  alpha=opacity,
                  color='blue',
                  label='synonyms')
 
-rects2 = plt.bar(index + .3, count_hyper, bar_width,
+rects2 = plt.bar(index + .25, count_hyper, bar_width,
                  alpha=opacity,
                  color='red',
                  label='hyernyms')
 
 
-rects3 = plt.bar(index + .45, count_hypo, bar_width,
+rects3 = plt.bar(index + .4, count_hypo, bar_width,
                  alpha=opacity,
                  color='purple',
-                 label='hyponyms')
+                 label='hypernyms')
 
 
-rects4 = plt.bar(index + .6, count_holo, bar_width,
+rects4 = plt.bar(index + .55, count_holo, bar_width,
                  alpha=opacity,
                  color='green',
                  label='holonyms')
 
 
-rects5 = plt.bar(index + .75, count_mero, bar_width,
+rects5 = plt.bar(index + .7, count_mero, bar_width,
                  alpha=opacity,
                  color='orange',
                  label='meronyms')
@@ -128,7 +127,7 @@ rects5 = plt.bar(index + .75, count_mero, bar_width,
 plt.xlabel('K')
 plt.ylabel('Average Jacard Distance')
 plt.title('Average Jaccard Distance by Relation Type and K')
-plt.xticks(index + bar_width, ('<200', '200-400', '400-600', '600-800', '>800'))
+plt.xticks(index + bar_width * 5, ('<200', '200-400', '400-600', '600-800', '>800'))
 plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 
 plt.tight_layout()

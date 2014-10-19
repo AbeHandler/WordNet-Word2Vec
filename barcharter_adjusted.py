@@ -139,4 +139,4 @@ plt.tick_params(
 
 plt.tight_layout()
 
-plt.savefig(sys.argv[1] + '.png', bbox_inches='tight', pad_inches=.4)
+plt.savefig('Adjusted.png', bbox_inches='tight', pad_inches=.4)
