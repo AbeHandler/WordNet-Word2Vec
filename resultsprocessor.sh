@@ -18,3 +18,7 @@ cat results.txt | python barcharter.py Bar
 
 cat results.txt | python averagejacard.py 
 cat results.txt | python counter.py
+
+cat results.txt | grep -v 'not_in_wordnet' | python likelyhood.py 
+cat results.txt | grep -v 'not_in_wordnet' | grep -v 'KeyError' | python likelyhood.py 
+
