@@ -13,11 +13,14 @@ import sys
 x_arr = []
 
 for l in sys.stdin:
-	print l.replace("\n", "")
+	x_arr.append(float(l.replace("\n", "")))
 
 # Fake data
-x = np.arange(0, 40, 1)
+x = np.arange(0, 70, 1)
 yl = 300 + 63*np.exp(-x/35.)
+
+print type(yl)
+yl = np.array(x_arr)
 
 print x
 print yl
@@ -25,7 +28,7 @@ print yl
 def func(x, a, b, c):
     return a*np.exp(-b*x) + c
 
-popt, pcov = curve_fit(func, x, yl, p0=(40, 0.012, 250), maxfev=20000)
+popt, pcov = curve_fit(func, x, yl, maxfev=20000)
 a, b, c = popt
 #print 'a=', a, 'b=', b, 'c=', c
 #print 'func=', func(x, a, b, c)
