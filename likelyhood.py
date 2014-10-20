@@ -50,7 +50,6 @@ for line in sys.stdin:
 def lessThanGreaterThanK(l, k):
     if len(l) == 0:
         return False
-    print l
     try:
         if (int(l.split(",")[4]) <= k and int(l.split(",")[4]) > floor[k]):
             return True
