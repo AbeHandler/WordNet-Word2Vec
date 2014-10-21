@@ -19,19 +19,19 @@ for l in sys.stdin:
 x = np.arange(0, len(x_arr), 1)
 yl = 300 + 63*np.exp(-x/35.)
 
-print type(yl)
+#print type(yl)
 yl = np.array(x_arr)
 
-print x
-print yl
+#print x
+#print yl
 
 def func(x, a, b, c):
     return a*np.exp(-b*x) + c
 
 popt, pcov = curve_fit(func, x, yl, maxfev=20000)
 a, b, c = popt
-#print 'a=', a, 'b=', b, 'c=', c
-#print 'func=', func(x, a, b, c)
+print 'a=', a, 'b=', b, 'c=', c
+print 'func=', func(x, a, b, c)
 
 xf = np.linspace(0, 70, 100)
 yf = a*np.exp(-b*x) + c

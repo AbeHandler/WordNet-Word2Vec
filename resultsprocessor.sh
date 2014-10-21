@@ -1,3 +1,27 @@
+#get the counts for each of the different relations at different values of k
+./type_counter.sh 200 syn > total_syn_counts.txt
+cat total_syn_counts.txt | tr -d " \t\ \r" | tr '-' ',' > total_syn_counts.txt 
+
+./type_counter.sh 200 hypo > total_hypo_counts.txt
+cat total_hypo_counts.txt | tr -d " \t\ \r" | tr '-' ',' > total_hypo_counts.txt 
+
+./type_counter.sh 200 hyper > total_hyper_counts.txt
+cat total_hyper_counts.txt | tr -d " \t\ \r" | tr '-' ',' > total_hyper_counts.txt 
+
+./type_counter.sh 200 holo > total_holo_counts.txt
+cat total_holo_counts.txt | tr -d " \t\ \r" | tr '-' ',' > total_holo_counts.txt 
+
+./type_counter.sh 200 mero > total_mero_counts.txt
+cat total_mero_counts.txt | tr -d " \t\ \r" | tr '-' ',' > total_mero_counts.txt 
+
+./total_counter.sh 200 > total_counts.txt 
+cat total_counts.txt  | tr -d " \t\ \r" | tr '-' ',' > total_counts.txt
+
+cat total_syn_counts.txt | tr -d " \t\ \r" | tr '-' ',' > total_syn_counts.txt 
+
+cat total_syn_counts.txt | tr -d " \t\ \r" | tr '-' ',' > total_hypo_counts.txt
+cat total_syn_counts.txt | tr -d " \t\ \r" | tr '-' ',' > total_hypo_counts.txt
+
 cat results.txt | egrep '^syn,' | awk -F","  '{print $5}' | sort -n > syndist.txt
 cat results.txt | egrep '^holo,' | awk -F","  '{print $5}' | sort -n > holdist.txt
 cat results.txt | egrep '^mero,' | awk -F","  '{print $5}' | sort -n > merdist.txt
@@ -23,5 +47,6 @@ cat results.txt | python barcharter_adjusted.py
 
 cat results.txt | grep -v 'not_in_wordnet' | grep -v 'KeyError' | python likelyhood.py 
 cat synread.txt | python sample.py 
+
 
 cat results.txt | grep -v 'not_in_wordnet' | grep -v 'KeyError' | python likelyhood_processor.py 
