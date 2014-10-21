@@ -23,5 +23,5 @@ with (open(args.k_file, "r")) as outfile:
 		total[float(index)] = float(value)
 
 
-for i in range(1, 40):
+for i in range(1, 200):
 	print relation[i] / total[i]
