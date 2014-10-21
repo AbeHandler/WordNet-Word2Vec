@@ -43,6 +43,6 @@ plt.plot(x, func(x, *popt))
 plt.plot(x, yl, 'go', label='Lacquered')
 
 plt.legend()
-plt.ylabel("Temperature (K)")
-plt.xlabel("Time (min)")
+plt.xlabel("Temperature (K)")
+plt.ylabel("Time (min)")
 plt.show()
