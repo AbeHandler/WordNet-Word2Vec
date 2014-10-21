@@ -18,15 +18,11 @@ cat total_mero_counts.txt | tr -d " \t\ \r" | tr '-' ',' > total_mero_counts.txt
 cat total_counts.txt  | tr -d " \t\ \r" | tr '-' ',' > total_counts.txt
 
 
-py likelyhood_calculator.py --relation_file total_syn_counts.txt --k_file total_counts.txt | python scatterploy.py synscatter
-
-py likelyhood_calculator.py --relation_file total_hypo_counts.txt --k_file total_counts.txt | python scatterploy.py hyposcatter
-
-py likelyhood_calculator.py --relation_file total_hyper_counts.txt --k_file total_counts.txt | python scatterploy.py hyperscatter
-
-py likelyhood_calculator.py --relation_file total_holo_counts.txt --k_file total_counts.txt | python scatterploy.py holoscatter
-
-py likelyhood_calculator.py --relation_file total_mero_counts.txt --k_file total_counts.txt | python scatterploy.py meroscatter
+./scattermaker.sh syn
+./scattermaker.sh hypo
+./scattermaker.sh hyper
+./scattermaker.sh holo
+./scattermaker.sh mero
 
 #cat results.txt | egrep '^syn,' | awk -F","  '{print $5}' | sort -n > syndist.txt
 #cat results.txt | egrep '^holo,' | awk -F","  '{print $5}' | sort -n > holdist.txt
@@ -42,17 +38,17 @@ py likelyhood_calculator.py --relation_file total_mero_counts.txt --k_file total
 #cat merdist.txt | python chartmaker.py Meronym_Distance
 #cat holdist.txt | python chartmaker.py Holonym_Distance
 #cat syndist.txt | python chartmaker.py Synonym_Distance
-cat hyperdist.txt | python chartmaker.py Hypernym_Distance
-cat hypodist.txt | python chartmaker.py Hyponym_Distance
-cat results.txt | python barcharter.py Bar
+#cat hyperdist.txt | python chartmaker.py Hypernym_Distance
+#cat hypodist.txt | python chartmaker.py Hyponym_Distance
+#cat results.txt | python barcharter.py Bar
 
-cat results.txt | python averagejacard.py 
-cat results.txt | python counter.py
+#cat results.txt | python averagejacard.py 
+#cat results.txt | python counter.py
 
-cat results.txt | python barcharter_adjusted.py 
+#cat results.txt | python barcharter_adjusted.py 
 
-cat results.txt | grep -v 'not_in_wordnet' | grep -v 'KeyError' | python likelyhood.py 
-cat synread.txt | python sample.py 
+#cat results.txt | grep -v 'not_in_wordnet' | grep -v 'KeyError' | python likelyhood.py 
+#cat synread.txt | python sample.py 
 
 
-cat results.txt | grep -v 'not_in_wordnet' | grep -v 'KeyError' | python likelyhood_processor.py 
+#cat results.txt | grep -v 'not_in_wordnet' | grep -v 'KeyError' | python likelyhood_processor.py 

@@ -34,10 +34,12 @@ x = np.arange(0, len(x_arr), 1)
 
 y = np.array(x_arr)
 
+print x
+print y
 
 area = 5 # 0 to 15 point radiuses
 
-plt.scatter(x, y, s=area, c='b', alpha=1, label='Synonym')
+plt.scatter(x, y, s=area, c='b', alpha=1, label=sys.argv[1])
 plt.legend()
 plt.xlabel("K")
 plt.ylabel("Pct likelyhood")
