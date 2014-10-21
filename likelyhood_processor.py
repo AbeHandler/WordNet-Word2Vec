@@ -48,11 +48,17 @@ types = ['syn', 'hypo', 'hyper', 'holo', 'mero']
 totals = {}
 
 for k in ks:
+    print k
     totals[k] = float(sum(1 for l in lines if is_k(l, k)))
+
+print totals
 
 for t in types:
     for k in ks:
+        print t
+        print k
         type_hits = float(sum(1 for l in lines if is_k(l, k, t)))
+        print type_hits
         total_hits = totals[k]
         with open(t + ".likelyhood", "a") as myfile:
             myfile.write(",".join([str(k), str(syn_hits/total_hits)])+"\n")
