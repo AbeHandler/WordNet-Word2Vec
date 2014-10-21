@@ -22,5 +22,6 @@ cat results.txt | python counter.py
 cat results.txt | python barcharter_adjusted.py 
 
 cat results.txt | grep -v 'not_in_wordnet' | grep -v 'KeyError' | python likelyhood.py 
+cat synread.txt | python sample.py 
 
 cat results.txt | grep -v 'not_in_wordnet' | grep -v 'KeyError' | python likelyhood_processor.py 

@@ -16,7 +16,7 @@ for l in sys.stdin:
 	x_arr.append(float(l.replace("\n", "")))
 
 # Fake data
-x = np.arange(0, 70, 1)
+x = np.arange(0, len(x_arr), 1)
 yl = 300 + 63*np.exp(-x/35.)
 
 print type(yl)
