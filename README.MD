@@ -13,6 +13,10 @@ Google's unsupervised Word2Vec system attempts to determine the semantic distanc
 
 `process_results.sh` Calculates totals used to show final results
 
+`tester.py` Some unit tests
+
+`wordnetchecker.py` Finds the average numbers of each relation in WordNet
+
 ####Dependencies
 
 * **NLTK 3.0.0**
