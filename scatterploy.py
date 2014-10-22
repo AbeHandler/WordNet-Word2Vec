@@ -11,7 +11,8 @@ from matplotlib.ticker import FuncFormatter
 def to_percent(y, position):
     # Ignore the passed in position. This has the effect of scaling the default
     # tick locations.
-    s = str(100 * y)
+    s = str(int(round(100 * y)))
+    print s
 
     # The percent symbol needs escaping in latex
     if matplotlib.rcParams['text.usetex'] == True:
@@ -41,7 +42,8 @@ area = 5 # 0 to 15 point radiuses
 
 plt.scatter(x, y, s=area, c='b', alpha=1, label=sys.argv[1])
 plt.legend()
-plt.xlabel("K")
-plt.ylabel("Pct likelyhood")
+plt.xlabel("k")
+plt.ylabel("Probability")
+plt.axis([0, 200, 0, .1])
 plt.tight_layout()
 plt.savefig(sys.argv[1] + '.png', bbox_inches='tight', pad_inches=.4)
