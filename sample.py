@@ -17,7 +17,6 @@ for l in sys.stdin:
 
 # Fake data
 x = np.arange(0, len(x_arr), 1)
-yl = 300 + 63*np.exp(-x/35.)
 
 #print type(yl)
 yl = np.array(x_arr)
@@ -35,6 +34,16 @@ print 'func=', func(x, a, b, c)
 
 xf = np.linspace(0, 70, 100)
 yf = a*np.exp(-b*x) + c
+
+plt.title(r'$\alpha > \beta$')
+
+title = str(round(a, 4)) + "\\" + "times" + "\\" + "ln{(x)} + " + str(round(c, 4))
+
+plt.title(r'$' + title + '$')
+
+print a 
+print b
+print c
 
 plt.clf()
 

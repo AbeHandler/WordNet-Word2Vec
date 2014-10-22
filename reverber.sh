@@ -1,1 +1,0 @@
-java -Xmx512m -jar reverb-latest.jar $(find /home/abe-lens-laptop/nltk_data/corpora/reuters/training -type f) | awk -F "\t" 'BEGIN{OFS="\t";}{print $3,$4,$5,$12,$13,$14}' > reutersrelations.txt
