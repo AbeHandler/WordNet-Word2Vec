@@ -13,7 +13,7 @@ Google's unsupervised Word2Vec system attempts to determine the semantic distanc
 
 `process_results.sh` Calculates totals used to show final results
 
-####Dependencies ******versions*****
+####Dependencies
 
 * **NLTK 3.0.0**
 * **Gensim 0.10.2**
