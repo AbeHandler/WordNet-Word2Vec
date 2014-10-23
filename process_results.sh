@@ -1,3 +1,5 @@
+rm textfiles/total*
+
 ./type_counter.sh 200 syn > temp.syn
 cat temp.syn | tr -d " \t\ \r" | tr '-' ',' > total_syn_counts.txt
 rm temp.syn
@@ -21,3 +23,11 @@ rm temp.mero
 ./total_counter.sh 200 > temp.total
 cat temp.total  | tr -d " \t\ \r" | tr '-' ',' > total_counts.txt
 rm temp.total
+
+mv *txt textfiles
+
+./scattermaker.sh syn
+./scattermaker.sh hypo
+./scattermaker.sh hyper
+./scattermaker.sh holo
+./scattermaker.sh mero

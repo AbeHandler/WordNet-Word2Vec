@@ -13,7 +13,7 @@ import argparse
 import os
 
 try:
-    os.remove("results.txt")
+    os.remove("textfiles/results.txt")
 except OSError:
     pass
 
@@ -34,7 +34,8 @@ def same_stem(one, two):
 
 def printout(line):
     if args['out']:
-        with open(args['out'], "a") as results:
+        writeto = "textfiles/" + args['out']
+        with open(writeto, "a") as results:
             results.write('\n' + line)
 
 def inStopWords(w):
