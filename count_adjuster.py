@@ -9,6 +9,7 @@ for l in lines:
 		k, count = f.replace("\n", "").split(",")
 		count = int(round(float(count) * float(multiple)))
 		lines_to_write.append(",".join([str(k), str(count)]))
-	with open("textfiles/adjusted_" + filename, "a") as outfile:
+	with open("textfiles/" + filename.replace("total_", "total_adjusted_"), "a") as outfile:
 		for item in lines_to_write:
-			outfile.write("\n" + item)
+			if len(item)>0:
+				outfile.write(item + "\n")

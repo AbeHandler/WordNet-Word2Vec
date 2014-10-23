@@ -1,6 +1,10 @@
+#cleanup
 rm textfiles/total*
 rm images/*
+rm temp*
+rm *png
 
+#generate the counts
 ./type_counter.sh 200 syn > temp.syn
 cat temp.syn | tr -d " \t\ \r" | tr '-' ',' > total_syn_counts.txt
 rm temp.syn
@@ -27,10 +31,20 @@ rm temp.total
 
 mv *txt textfiles
 
+#make adjusted counts
+python wordnetchecker.py > wordnetcheck.txt
+python count_adjuster.py
+
+#generate the plots
 ./scattermaker.sh syn
 ./scattermaker.sh hypo
 ./scattermaker.sh hyper
 ./scattermaker.sh holo
 ./scattermaker.sh mero
+./scattermaker.sh adjusted_syn
+./scattermaker.sh adjusted_hypo
+./scattermaker.sh adjusted_hyper
+./scattermaker.sh adjusted_holo
+./scattermaker.sh adjusted_mero
 
 mv *png images
