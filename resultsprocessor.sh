@@ -1,21 +1,15 @@
 #get the counts for each of the different relations at different values of k
-./type_counter.sh 200 syn > total_syn_counts.txt
-cat total_syn_counts.txt | tr -d " \t\ \r" | tr '-' ',' > total_syn_counts.txt 
+./type_counter.sh 200 syn | tr -d " \t\ \r" | tr '-' ',' > textfiles/total_syn_counts.txt 
 
-./type_counter.sh 200 hypo > total_hypo_counts.txt
-cat total_hypo_counts.txt | tr -d " \t\ \r" | tr '-' ',' > total_hypo_counts.txt 
+./type_counter.sh 200 hypo | tr -d " \t\ \r" | tr '-' ',' > textfiles/total_hypo_counts.txt 
 
-./type_counter.sh 200 hyper > total_hyper_counts.txt
-cat total_hyper_counts.txt | tr -d " \t\ \r" | tr '-' ',' > total_hyper_counts.txt 
+./type_counter.sh 200 hyper | tr -d " \t\ \r" | tr '-' ',' > textfiles/total_hyper_counts.txt 
 
-./type_counter.sh 200 holo > total_holo_counts.txt
-cat total_holo_counts.txt | tr -d " \t\ \r" | tr '-' ',' > total_holo_counts.txt 
+./type_counter.sh 200 holo | tr -d " \t\ \r" | tr '-' ',' > textfiles/total_holo_counts.txt 
 
-./type_counter.sh 200 mero > total_mero_counts.txt
-cat total_mero_counts.txt | tr -d " \t\ \r" | tr '-' ',' > total_mero_counts.txt 
+./type_counter.sh 200 mero  | tr -d " \t\ \r" | tr '-' ',' > textfiles/total_mero_counts.txt 
 
-./total_counter.sh 200 > total_counts.txt 
-cat total_counts.txt  | tr -d " \t\ \r" | tr '-' ',' > total_counts.txt
+./total_counter.sh 200  | tr -d " \t\ \r" | tr '-' ',' > textfiles/total_counts.txt
 
 
 ./scattermaker.sh syn
