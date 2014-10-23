@@ -1,4 +1,5 @@
 rm textfiles/total*
+rm images/*
 
 ./type_counter.sh 200 syn > temp.syn
 cat temp.syn | tr -d " \t\ \r" | tr '-' ',' > total_syn_counts.txt
@@ -31,3 +32,5 @@ mv *txt textfiles
 ./scattermaker.sh hyper
 ./scattermaker.sh holo
 ./scattermaker.sh mero
+
+mv *png images

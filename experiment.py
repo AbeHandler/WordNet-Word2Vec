@@ -45,24 +45,18 @@ def inStopWords(w):
 
 words = random.sample(set(reuters.words()), 10000)
 
-print len(words)
-
 words = [s for s in words if not inStopWords(s)]
-print len(words)
 
 counter = 0
 for r in words:
     counter = counter + 1
-    print counter
     r = r.encode('ascii', 'ignore')
     try:
-        if verbose:
-            print "word from vocab {}".format(r)
         n = 0
         sims = model.most_similar(positive=[r], topn=200)
         for s in sims:
             n = n + 1
-            print n
+            print "counter: " + str(counter) + "-" + str(n)
             s = (s[0].encode("ascii", 'ignore'), s[1])
             hit = False
             search = True

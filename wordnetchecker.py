@@ -8,7 +8,7 @@ import numpy as np
 import sys
 import re
 import math
-words = random.sample(set(reuters.words()), 1000)
+words = random.sample(set(reuters.words()), 100)
 
 holototal = []
 synstotal = []
@@ -53,12 +53,15 @@ mean_mero = np.mean(np.array(merostotal))
 
 sum_of_means = np.sum([mean_holo, mean_syn, mean_hypo, mean_hyper, mean_mero])
 
-print "sum {}".format(str(sum_of_means))
-print "syn {}".format(str(mean_syn/sum_of_means))
-print "hypo {}".format(str(mean_hypo/sum_of_means))
-print "hyper {}".format(str(mean_hyper/sum_of_means))
-print "mero {}".format(str(mean_mero/sum_of_means))
-print "holo {}".format(str(mean_holo/sum_of_means))
+holofrac = mean_holo/sum_of_means
+merofrac = mean_mero/sum_of_means
+hypofrac = mean_hypo/sum_of_means
+hyperfac = mean_hyper/sum_of_means
+synfrac = mean_syn/sum_of_means
+max_frac = max([holofrac, merofrac, hypofrac, hyperfac, synfrac])
 
-print mean_holo/sum_of_means + mean_mero/sum_of_means+ \
-    mean_hypo/sum_of_means+ mean_hyper/sum_of_means + mean_syn/sum_of_means
+print "total_syn_counts.txt {}".format(1/(synfrac/max_frac))
+print "total_hypo_counts.txt {}".format(1/(hypofrac/max_frac))
+print "total_hyper_counts.txt {}".format(1/(hyperfac/max_frac))
+print "total_mero_counts.txt {}".format(1/(merofrac/max_frac))
+print "total_holo_counts.txt {}".format(1/(holofrac/max_frac))
