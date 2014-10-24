@@ -43,15 +43,6 @@ floor[120] = 80
 floor[160] = 120
 floor[200] = 160
 
-count_syn = []
-count_hyper = []
-count_hypo = []
-count_holo = []
-count_stem = []
-count_mero = []
-count_not_in_wordnet = []
-key_error = []
-
 def print_line(start, array):
     for k in ks:
         start = start + str(len([s for s in array if lessThanGreaterThanK(s, k)])) + " & "
@@ -71,4 +62,4 @@ print_line("Same stem &", stem)
 
 print_line("Not in wordnet &", not_in_wordnet)
 
-print_line("Key Error &", key_error)
+print "Key Error &" + str(len(key_error))

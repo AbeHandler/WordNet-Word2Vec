@@ -11,15 +11,28 @@ rc('text', usetex=True)
 import sys
 
 x_arr = []
+x1_arr = []
+x2_arr = []
 
-for l in sys.stdin:
-	x_arr.append(float(l.replace("\n", "")))
+with open("textfiles/syn_probabilities.txt") as results:
+    for line in results.readlines():
+        x_arr.append(float(line.replace("\n", "")))
+
+with open("textfiles/hyper_probabilities.txt") as results:
+    for line in results.readlines():
+        x1_arr.append(float(line.replace("\n", "")))
+
+with open("textfiles/hypo_probabilities.txt") as results:
+    for line in results.readlines():
+        x2_arr.append(float(line.replace("\n", "")))
 
 # Fake data
 x = np.arange(0, len(x_arr), 1)
 
 #print type(yl)
 yl = np.array(x_arr)
+yl1 = np.array(x1_arr)
+yl2 = np.array(x2_arr)
 
 #print x
 #print yl
@@ -46,12 +59,19 @@ print b
 print c
 
 plt.clf()
+opacity = 0.4
+#plt.plot(x, func(x, *popt))
 
-plt.plot(x, func(x, *popt))
-
-plt.plot(x, yl, 'go', label='Lacquered')
+plt.plot(x, yl, 'go', label='Synonyms', color="blue", alpha=opacity)
+plt.plot(x, yl1, 'go', label='Hypernyms', color="red", alpha=opacity)
+plt.plot(x, yl2, 'go', label='Hypornyms', color="yellow", alpha=opacity)
 
 plt.legend()
-plt.xlabel("Temperature (K)")
-plt.ylabel("Time (min)")
-plt.show()
+plt.xlabel("ln(k)")
+plt.ylabel("ln(probability)")
+plt.xlim([0,700])
+plt.ylim(.003162277, .1)
+plt.loglog()
+plt.minorticks_off()
+plt.title("Relations: ln probability by ln k")
+plt.savefig('loglog_prob.png', bbox_inches='tight', pad_inches=.4)

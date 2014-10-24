@@ -1,5 +1,5 @@
 """
-Bar chart demo with pairs of bars grouped for easy comparison.
+Bar chart to show different relations at different k
 """
 import numpy as np
 import sys
@@ -16,8 +16,9 @@ def isIt(s, p):
     return False
 
 
-for line in sys.stdin:
-    lines.append(line.replace("\n", ""))
+with open("textfiles/results.txt") as results:
+    for line in results.readlines():
+        lines.append(line.replace("\n", ""))
 
 
 def lessThanGreaterThanK(l, k):
@@ -37,13 +38,13 @@ stem = [l for l in lines if isIt(l, "^same stem")]
 
 n_groups = 5
 
-ks = [200, 400, 600, 800, 1000]
+ks = [40, 80, 120, 160, 200]
 floor = {}
-floor[200] = 0
-floor[400] = 200
-floor[600] = 400
-floor[800] = 600
-floor[1000] = 800
+floor[40] = 0
+floor[80] = 40
+floor[120] = 80
+floor[160] = 120
+floor[200] = 160
 
 count_syn = []
 count_hyper = []
@@ -127,7 +128,7 @@ rects6 = plt.bar(index + .6, count_stem, bar_width,
 plt.xlabel('K')
 plt.ylabel('log 10 of count')
 plt.title('Semantic Similarity in Word2Vec Compared To WordNet')
-plt.xticks(index + bar_width * 4, ('<200', '200-400', '400-600', '600-800', '>800'))
+plt.xticks(index + bar_width * 4, ('<40', '40-80', '80-120', '120-160', '160-200'))
 plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 
 plt.tight_layout()
