@@ -1,6 +1,3 @@
-"""
-Bar chart demo with pairs of bars grouped for easy comparison.
-"""
 import numpy as np
 import sys
 import re
@@ -15,9 +12,9 @@ def isIt(s, p):
         return True
     return False
 
-
-for line in sys.stdin:
-    lines.append(line.replace("\n", ""))
+with open("textfiles/results.txt") as results:
+    for line in results.readlines():
+        lines.append(line.replace("\n", ""))
 
 
 def lessThanGreaterThanK(l, k):
@@ -35,14 +32,16 @@ holo = [l for l in lines if isIt(l, "^holo")]
 mero = [l for l in lines if isIt(l, "^mero")]
 stem = [l for l in lines if isIt(l, "^same stem")]
 not_in_wordnet = [l for l in lines if isIt(l, "^not_in_wordnet")]
+key_error = [l for l in lines if isIt(l, "^KeyError")]
 
-ks = [200, 400, 600, 800, 1000]
+ks = [40, 80, 120, 160, 200]
+
 floor = {}
-floor[200] = 0
-floor[400] = 200
-floor[600] = 400
-floor[800] = 600
-floor[1000] = 800
+floor[40] = 0
+floor[80] = 40
+floor[120] = 80
+floor[160] = 120
+floor[200] = 160
 
 count_syn = []
 count_hyper = []
@@ -51,8 +50,7 @@ count_holo = []
 count_stem = []
 count_mero = []
 count_not_in_wordnet = []
-base = 10
-
+key_error = []
 
 def print_line(start, array):
     for k in ks:
@@ -72,3 +70,5 @@ print_line("Meronomy &", mero)
 print_line("Same stem &", stem)
 
 print_line("Not in wordnet &", not_in_wordnet)
+
+print_line("Key Error &", key_error)

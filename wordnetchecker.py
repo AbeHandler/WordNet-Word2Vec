@@ -51,17 +51,16 @@ mean_mero = np.mean(np.array(merostotal))
 #print "hyper {}".format(mean_hyper)
 #print "mero {}".format(mean_mero)
 
-sum_of_means = np.sum([mean_holo, mean_syn, mean_hypo, mean_hyper, mean_mero])
+mean_of_means = np.mean(np.array([mean_mero, mean_holo, mean_syn, mean_hyper, mean_hypo]))
 
-holofrac = mean_holo/sum_of_means
-merofrac = mean_mero/sum_of_means
-hypofrac = mean_hypo/sum_of_means
-hyperfac = mean_hyper/sum_of_means
-synfrac = mean_syn/sum_of_means
-max_frac = max([holofrac, merofrac, hypofrac, hyperfac, synfrac])
+holofrac = mean_holo/mean_of_means
+merofrac = mean_mero/mean_of_means
+hypofrac = mean_hypo/mean_of_means
+hyperfac = mean_hyper/mean_of_means
+synfrac = mean_syn/mean_of_means
 
-print "total_syn_counts.txt {}".format(1/(synfrac/max_frac))
-print "total_hypo_counts.txt {}".format(1/(hypofrac/max_frac))
-print "total_hyper_counts.txt {}".format(1/(hyperfac/max_frac))
-print "total_mero_counts.txt {}".format(1/(merofrac/max_frac))
-print "total_holo_counts.txt {}".format(1/(holofrac/max_frac))
+print "total_syn_counts.txt {}".format(mean_of_means/synfrac)
+print "total_hypo_counts.txt {}".format(mean_of_means/hypofrac)
+print "total_hyper_counts.txt {}".format(mean_of_means/hyperfac)
+print "total_mero_counts.txt {}".format(mean_of_means/merofrac)
+print "total_holo_counts.txt {}".format(mean_of_means/holofrac)

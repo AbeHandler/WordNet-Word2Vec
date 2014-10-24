@@ -31,6 +31,8 @@ rm temp.total
 
 mv *txt textfiles
 
+python counter.py > latexchart.txt
+
 #make adjusted counts
 python wordnetchecker.py > wordnetcheck.txt
 python count_adjuster.py
