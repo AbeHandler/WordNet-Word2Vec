@@ -1,3 +1,5 @@
+scp probability_calculator.py abe@shorty.cs.uno.edu:/home/abe/thesis/word2vec
+scp probability_counter.sh abe@shorty.cs.uno.edu:/home/abe/thesis/word2vec
 scp count_adjuster.py abe@shorty.cs.uno.edu:/home/abe/thesis/word2vec
 scp wordnetchecker.py abe@shorty.cs.uno.edu:/home/abe/thesis/word2vec
 scp main.sh abe@shorty.cs.uno.edu:/home/abe/thesis/word2vec

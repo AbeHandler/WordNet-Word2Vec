@@ -1,3 +1,4 @@
+import os
 lines = tuple(open("wordnetcheck.txt", 'r'))
 
 for l in lines:
@@ -7,9 +8,19 @@ for l in lines:
 	lines_to_write = []
 	for f in file_to_fix:
 		k, count = f.replace("\n", "").split(",")
-		count = int(round(float(count) * float(multiple)))
-		lines_to_write.append(",".join([str(k), str(count)]))
+		print "k {}".format(k)
+		print "count {}".format(count)
+		print "multiple {}".format(multiple)
+		adjusted_count = int(float(count) * float(multiple))
+		print "adjusted_count {}".format(adjusted_count)
+		lines_to_write.append(",".join([str(k), str(adjusted_count)]))
+
+	try:
+		os.remove("textfiles/" + filename.replace("total_", "total_adjusted_"))
+	except OSError:
+		pass
+
 	with open("textfiles/" + filename.replace("total_", "total_adjusted_"), "a") as outfile:
 		for item in lines_to_write:
-			if len(item)>0:
+			if len(item) > 0:
 				outfile.write(item + "\n")
