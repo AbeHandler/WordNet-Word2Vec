@@ -7,16 +7,8 @@ cat textfiles/total_hypo_counts.txt  |  awk -F","  '{print $2}'  | python chartm
 
 
 echo 'scatters'
-#generate the plots
-./scattermaker.sh syn
-./scattermaker.sh hypo
-./scattermaker.sh hyper
-./scattermaker.sh holo
-./scattermaker.sh mero
-./scattermaker.sh adjusted_syn
-./scattermaker.sh adjusted_hypo
-./scattermaker.sh adjusted_hyper
-./scattermaker.sh adjusted_holo
-./scattermaker.sh adjusted_mero
+python total_count_chart_maker_adjusted.py
+python total_count_chart_maker.py
+
 python barcharter.py
 

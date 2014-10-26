@@ -4,6 +4,8 @@ rm images/*
 rm temp*
 rm *png
 
+ ./type_counter.sh 200 same | tr -d " \t\ \r" | tr '-' ',' > textfiles/total_stem_counts.txt 
+
 #generate the counts
 ./type_counter.sh 200 syn > temp.syn
 cat temp.syn | tr -d " \t\ \r" | tr '-' ',' > total_syn_counts.txt

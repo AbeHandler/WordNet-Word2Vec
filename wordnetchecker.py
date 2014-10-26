@@ -8,7 +8,7 @@ import numpy as np
 import sys
 import re
 import math
-words = random.sample(set(reuters.words()), 100)
+words = random.sample(set(reuters.words()), 10000)
 
 holototal = []
 synstotal = []

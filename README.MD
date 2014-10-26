@@ -21,6 +21,6 @@ Google's unsupervised Word2Vec system attempts to determine the semantic distanc
 * **NLTK 3.0.0**
 * **Gensim 0.10.2**
 * **numpy 1.9.0**
-* **Word vectors from Google news corpus** [Downloadable here](https://code.google.com/p/word2vec/).
+* **Word vectors from Google news corpus** [downloadable here](https://code.google.com/p/word2vec/).
 
 

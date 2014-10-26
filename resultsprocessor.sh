@@ -9,6 +9,9 @@
 
 ./type_counter.sh 200 mero  | tr -d " \t\ \r" | tr '-' ',' > textfiles/total_mero_counts.txt 
 
+./type_counter.sh 200 stem  | tr -d " \t\ \r" | tr '-' ',' > textfiles/total_stem_counts.txt 
+
+
 ./total_counter.sh 200  | tr -d " \t\ \r" | tr '-' ',' > textfiles/total_counts.txt
 
 
@@ -17,6 +20,7 @@
 ./scattermaker.sh hyper
 ./scattermaker.sh holo
 ./scattermaker.sh mero
+./scattermaker.sh stem
 
 #cat results.txt | egrep '^syn,' | awk -F","  '{print $5}' | sort -n > syndist.txt
 #cat results.txt | egrep '^holo,' | awk -F","  '{print $5}' | sort -n > holdist.txt

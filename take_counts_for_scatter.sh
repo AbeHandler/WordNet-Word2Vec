@@ -3,3 +3,4 @@ cat textfiles/total_mero_counts.txt | awk -F"," '{print $2}' > textfiles/total_c
 cat textfiles/total_hyper_counts.txt | awk -F"," '{print $2}' > textfiles/total_count_scatter_hyper.txt
 cat textfiles/total_hypo_counts.txt | awk -F"," '{print $2}' > textfiles/total_count_scatter_hypo.txt
 cat textfiles/total_holo_counts.txt | awk -F"," '{print $2}' > textfiles/total_count_scatter_holo.txt
+cat textfiles/total_holo_counts.txt | awk -F"," '{print $2}' > textfiles/total_count_scatter_stem.txt
