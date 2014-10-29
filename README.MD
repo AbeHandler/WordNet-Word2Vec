@@ -14,6 +14,8 @@ This study seeks to answer such questions by comparing Word2Vec’s output with 
 
 ####Results
 
+Pick a word from the Reuters corpus. Get the 200 closest words in Word2Vec. How are these 200 words semantically related to the original word?
+
 ![All results](images/total.png)
 
 ####Files
