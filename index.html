@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Wordnet-word2vec by AbeHandler</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Wordnet-word2vec</h1>
+        <p>An empirical study of semantic similarity in WordNet and Word2Vec</p>
+
+        <p class="view"><a href="https://github.com/AbeHandler/WordNet-Word2Vec">View the Project on GitHub <small>AbeHandler/WordNet-Word2Vec</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/AbeHandler/WordNet-Word2Vec/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/AbeHandler/WordNet-Word2Vec/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/AbeHandler/WordNet-Word2Vec">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h3>
+<a name="an-empirical-study-of-semantic-similarity-in-wordnet-and-word2vec" class="anchor" href="#an-empirical-study-of-semantic-similarity-in-wordnet-and-word2vec"><span class="octicon octicon-link"></span></a>An empirical study of semantic similarity in WordNet and Word2Vec</h3>
+
+<h5>
+<a name="abe-handler--masters-thesis-university-of-new-orleans-fall-2014" class="anchor" href="#abe-handler--masters-thesis-university-of-new-orleans-fall-2014"><span class="octicon octicon-link"></span></a>Abe Handler | Master's Thesis: University of New Orleans, Fall 2014</h5>
+
+<h4>
+<a name="abstract" class="anchor" href="#abstract"><span class="octicon octicon-link"></span></a>Abstract</h4>
+
+<p>Google's unsupervised Word2Vec system attempts to determine the semantic distance between words at web scale. This paper performs an empirical analysis of Word2Vec's determinations by comparing them to WordNet, a well-known, human-curated lexical database. It finds that Word2Vec tends to uncover more of certain types of semantic relations than others, with Word2Vec returning more hypernyms than synonyms followed by meronyms, hyponyms and holonyms. Moreover, it shows the likelihood that neighbors separated by distance k in Word2Vec are semantically related in WordNet.</p>
+
+<h4>
+<a name="files" class="anchor" href="#files"><span class="octicon octicon-link"></span></a>Files</h4>
+
+<p><code>main.sh</code> Primary driver for the application. Use ./main.sh to run the experiment and generate results</p>
+
+<p><code>experiment.py</code> Runs the experiment</p>
+
+<p><code>process_results.sh</code> Calculates totals used to show final results</p>
+
+<p><code>tester.py</code> Some unit tests</p>
+
+<p><code>wordnetchecker.py</code> Finds the average numbers of each relation in WordNet</p>
+
+<h4>
+<a name="dependencies" class="anchor" href="#dependencies"><span class="octicon octicon-link"></span></a>Dependencies</h4>
+
+<ul>
+<li><strong>NLTK 3.0.0</strong></li>
+<li><strong>Gensim 0.10.2</strong></li>
+<li><strong>numpy 1.9.0</strong></li>
+<li>
+<strong>Word vectors from Google news corpus</strong> <a href="https://code.google.com/p/word2vec/">downloadable here</a>.</li>
+</ul>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/AbeHandler">AbeHandler</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
