@@ -1,8 +1,20 @@
 ###An empirical study of semantic similarity in WordNet and Word2Vec
 #####Abram Handler | Master's Thesis: University of New Orleans, Fall 2014
 
-####Abstract
-Google's unsupervised Word2Vec system attempts to determine the semantic distance between words at web scale. This paper performs an empirical analysis of Word2Vec's determinations by comparing them to WordNet, a well-known, human-curated lexical database. It finds that Word2Vec tends to uncover more of certain types of semantic relations than others, with Word2Vec returning more hypernyms than synonyms followed by meronyms, hyponyms and holonyms. Moreover, it shows the likelihood that neighbors separated by distance k in Word2Vec are semantically related in WordNet.
+####Project
+Word2Vec is a new unsupervised system for determining the semantic distance between words. For instance, after learning from billions of web pages, Word2Vec reports that the words Chinese river are semantically close to the word Yangtze. Such results have attracted lots of recent attention: over 100 researchers have cited Word2Vec since its publication in 2013. Yet certain aspects of the system’s output are poorly understood. 
+
+In particular:
+
+1. Word2Vec does not label particular semantic relationships between words – like the synonomy between cold and chilly or the meronomy between wheel and car. Instead, it assigns a number between 0 and 1, indicating the semantic distance between two words. As Word2Vec's creator's note: “there can be many different types of similarities.” [2] This opens an unknon question: what sorts of semantic similarities does Word2Vec uncover?
+
+2. Word2Vec can generate ranked lists showing which words are closer are further way in a semantic model. For example, Word2Vec says that grand-master is 3rd from the word chess, while Muay Thai kickboxing is 997th. What is the probability that two words that are k-apart in Word2Vec stand in some formal specific semantic relationship?
+
+This study seeks to answer such questions by comparing Word2Vec’s output with WordNet – a large, human-curated “lexical database” [3] and the most-frequently cited “lexiographic resource” [4] in English.
+
+####Results
+
+
 
 ####Files
 
