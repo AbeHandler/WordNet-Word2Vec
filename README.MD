@@ -14,7 +14,7 @@ This study seeks to answer such questions by comparing Word2Vec’s output with 
 
 ####Results
 
-
+![All results](images/total.png)
 
 ####Files
 
