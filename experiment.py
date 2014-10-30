@@ -20,11 +20,8 @@ except OSError:
 model = word2vec.Word2Vec.load_word2vec_format('GoogleNews-vectors-negative300.bin', binary=True)
 stemmer = SnowballStemmer("english")
 parser = argparse.ArgumentParser()
-parser.add_argument('--verbose', '-v', action='count')
 parser.add_argument('--out', '-o')
 args = vars(parser.parse_args())
-
-verbose = args['verbose'] > 0
 
 def same_stem(one, two):
 	if stemmer.stem(one) == stemmer.stem(two):

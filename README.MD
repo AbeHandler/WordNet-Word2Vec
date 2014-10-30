@@ -26,6 +26,8 @@ Pick a word from the Reuters corpus. Get the 200 closest words in Word2Vec. How 
 
 `process_results.sh` Calculates totals used to show final results
 
+`type_counter.sh` Counts the type of each relation. Part of process_results.sh
+
 `tester.py` Some unit tests
 
 `wordnetchecker.py` Finds the average numbers of each relation in WordNet
