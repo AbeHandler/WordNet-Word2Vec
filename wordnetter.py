@@ -7,35 +7,9 @@ stemmer = SnowballStemmer("english")
 import argparse
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--verbose', '-v', action='count')
+
 parser.add_argument('--out', '-o')
 args = vars(parser.parse_args())
-
-verbose = args['verbose'] > 0
-
-'''
-def translatePOS(pos):
-    if pos == "verb":
-        return wn.VERB
-    return None
-
-def getAntonyms(ss):
-    for l in ss.lemmas():
-        if len(l.antonyms()) > 0:
-            return [stemmer.stem(l.name()) for l in l.antonyms()]
-        return []
-
-
-def antonymous(a, b, jaccard=False):
-    synsets_a=wn.synsets(a)
-    total_antonyms_a=[]
-
-    for a in synsets_a:
-        total_antonyms_a.extend(getAntonyms(a))
-    if stemmer.stem(b) in total_antonyms_a:
-        return True
-    return False
-'''
 
 
 def same_stem(one, two):
