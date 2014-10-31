@@ -1,6 +1,3 @@
-"""
-Bar chart demo with pairs of bars grouped for easy comparison.
-"""
 import numpy as np
 import sys
 import re

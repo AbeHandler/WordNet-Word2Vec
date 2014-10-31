@@ -34,6 +34,8 @@ Pick a word from the Reuters corpus. Get the 200 closest words in Word2Vec. How 
 
 `tester.py` Some unit tests
 
+`averagejacard.py` Finds the average Jacard distance for each type of relation
+
 ####Dependencies
 
 * **NLTK 3.0.0**
