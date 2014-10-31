@@ -24,6 +24,8 @@ Pick a word from the Reuters corpus. Get the 200 closest words in Word2Vec. How 
 
 `experiment.py` Runs the experiment
 
+`wordnetter.py` Handles the logic for determining the relations
+
 `wordnetchecker.py` Finds the average numbers of each relation in WordNet
 
 `process_results.sh` Calculates totals used to show final results
