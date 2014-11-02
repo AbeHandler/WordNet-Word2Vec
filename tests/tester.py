@@ -1,5 +1,8 @@
 import random
 import unittest
+import sys
+
+sys.path.append("../")
 
 from wordnetter import synononymous
 from wordnetter import hypernomous
