@@ -30,6 +30,8 @@ Pick a word from the Reuters corpus. Get the 200 closest words in Word2Vec. How 
 
 `process_results.sh` Calculates totals used to show final results
 
+`scatterplot_maker.py` Creates a scatter plot showing the probability of a certain relation.
+
 `type_counter.sh` Counts the type of each relation. Part of process_results.sh
 
 `total_count_chart_maker.py` and `total_count_chart_maker_adjusted.py` Make the scatter plots
