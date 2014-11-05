@@ -62,32 +62,31 @@ plt.title("Count of holo relations by k")
 
 frac_val = .4
 
-plt.scatter(x, hypo, alpha=.4, label='Hyponyms', marker=".")
-z = [a[1] for a in lowess(hypo, x, frac=frac_val)]
-line = plt.plot(z, label='Hyponyms', linestyle='--')
 
-plt.scatter(x, hyper, alpha=.4, label='Hypernyms', marker="*")
-z = [a[1] for a in lowess(hyper, x, frac=frac_val)]
-line, = plt.plot(z, label='Hypernyms')
-line.set_dashes([8, 4, 2, 4, 2, 4])
-
-plt.scatter(x, syn, alpha=.4, label='Synonyms', marker="x", color="grey")
-z = [a[1] for a in lowess(syn, x, frac=frac_val)]
-line = plt.plot(z, label='Synonyms', linestyle=':')
-
-plt.scatter(x, mero, alpha=.4, label='Meronyms', marker="d")
-z = [a[1] for a in lowess(mero, x, frac=frac_val)]
-line = plt.plot(z, label='Meronyms', linestyle='-.')
-
-plt.scatter(x, same_stem, alpha=.4, label='Same stem', marker="h")
+#plt.scatter(x, same_stem, alpha=.4, label='Same stem', marker="h")
 z = [a[1] for a in lowess(same_stem, x, frac=frac_val)]
-line, = plt.plot(z, label='Same stem')
-line.set_dashes([4, 2, 6, 8, 4, 2])
+line, = plt.plot(z, label='Same stem', linestyle='-')
 
-plt.scatter(x, holo, alpha=.4, label='Holonyms', marker="o")
+#plt.scatter(x, syn, alpha=.4, label='Synonyms', marker="x", color="grey")
+z = [a[1] for a in lowess(syn, x, frac=frac_val)]
+line = plt.plot(z, label='Synonyms', linestyle='-.')
+
+#plt.scatter(x, hyper, alpha=.4, label='Hypernyms', marker="*")
+z = [a[1] for a in lowess(hyper, x, frac=frac_val)]
+line, = plt.plot(z, label='Hypernyms', linestyle="--")
+
+#lt.scatter(x, hypo, alpha=.4, label='Hyponyms', marker=".")
+z = [a[1] for a in lowess(hypo, x, frac=frac_val)]
+line = plt.plot(z, label='Hyponyms', linestyle='-')
+
+#plt.scatter(x, mero, alpha=.4, label='Meronyms', marker="d")
+z = [a[1] for a in lowess(mero, x, frac=frac_val)]
+line = plt.plot(z, label='Meronyms', linestyle=':')
+
+#plt.scatter(x, holo, alpha=.4, label='Holonyms', marker="o")
 z = [a[1] for a in lowess(holo, x, frac=frac_val)]
 line, = plt.plot(z, label='Holonyms')
-line.set_dashes([1, 5, 10, 5, 10, 1])
+line.set_dashes([1, 3, 1, 3, 1, 3])
 
 
 plt.xlabel("log k")
