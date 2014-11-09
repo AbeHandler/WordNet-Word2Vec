@@ -1,0 +1,5 @@
+echo "holo & " $(cat textfiles/results.txt | egrep '^holo' | wc -l) "\\\\  \hline"
+echo "hyper & " $(cat textfiles/results.txt | egrep '^hyper' | wc -l) "\\\\  \hline"
+echo "hypo & " $(cat textfiles/results.txt | egrep '^hypo' | wc -l) "\\\\  \hline"
+echo "mero & " $(cat textfiles/results.txt | egrep '^mero' | wc -l) "\\\\  \hline"
+echo "syn & " $(cat textfiles/results.txt | egrep '^syn' | wc -l) "\\\\  \hline"
