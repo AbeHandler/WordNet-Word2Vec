@@ -59,10 +59,10 @@ for r in words:
             search = True
             if same_stem(s[0], r):
                 search = False
-                printout(",".join(['same stem', s[0], r, str(s[1]), str(k)]))
+                printout(",".join(['same stem', str(model.similarity(s[0], r)), s[0], r, str(s[1]), str(k), str(1)]))
             if not_in_wordnet(r):
                 search = False
-                printout(",".join(['not_in_wordnet', s[0], r, str(s[1]), str(k)]))
+                printout(",".join(['not_in_wordnet', str(model.similarity(s[0], r)), s[0], r, str(s[1]), str(1)]))
             if search:
                 hyper = hypernomous(s[0], r)
                 hypo = hyoponomous(s[0], r)

@@ -97,39 +97,41 @@ syn = np.array(syn)
 hyper = np.array(hyper)
 hypo = np.array(hypo)
 mero = np.array(mero)
+none = np.array(none)
 
 alpha = .3
+'''
 plt.hist(holo, color="red", alpha=alpha)
 plt.hist(syn, color="blue", alpha=alpha)
 plt.hist(hyper, color="yellow", alpha=alpha)
 plt.hist(hypo, color="green", alpha=alpha)
 plt.hist(mero, color="purple", alpha=alpha)
-plt.hist(none, color="orange", alpha=alpha)
+#plt.hist(none, color="orange", alpha=alpha)
 '''
 density_mero = stats.kde.gaussian_kde(mero)
 x = np.arange(0., 1, .01)
-plt.plot(x, density_mero(x))
+plt.plot(x, density_mero(x), label="meronyms")
 
 density_holo = stats.kde.gaussian_kde(holo)
 x = np.arange(0., 1, .01)
-plt.plot(x, density_holo(x))
+plt.plot(x, density_holo(x), label="holonyms")
 
 density_syn = stats.kde.gaussian_kde(syn)
 x = np.arange(0., 1, .01)
-plt.plot(x, density_syn(x))
+plt.plot(x, density_syn(x), label="synonyms")
 
 density_hyper = stats.kde.gaussian_kde(hyper)
 x = np.arange(0., 1, .01)
-plt.plot(x, density_hyper(x))
+plt.plot(x, density_hyper(x), label="hypernyms")
 
 density_hypo = stats.kde.gaussian_kde(hypo)
 x = np.arange(0., 1, .01)
-plt.plot(x, density_hypo(x), label="hypo")
+plt.plot(x, density_hypo(x), label="hyponyms")
 
 density_none = stats.kde.gaussian_kde(none)
 x = np.arange(0., 1, .01)
 plt.plot(x, density_none(x), label="none")
-'''
+
 plt.legend()
 #plt.loglog()
 plt.show()
