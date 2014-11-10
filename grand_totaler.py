@@ -11,7 +11,7 @@ opacity = 0.4
 error_config = {'ecolor': '0.3'}
 means_men = (1453, 2561, 25620, 37107, 42908)
 index = np.arange(len(means_men))
-rects1 = plt.bar(index, means_men)
+rects1 = plt.bar(index, means_men, alpha=".5")
 
 plt.xticks(index + bar_width, ('Holonym', 'Meronym', 'Hyponym', 'Synonym', 'Hypernym'))
 

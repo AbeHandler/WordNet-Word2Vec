@@ -2,6 +2,7 @@ import numpy as np
 import sys
 import re
 import math
+import os
 import numpy as np
 
 increments = np.linspace(0, 1, num=1000)
@@ -21,6 +22,11 @@ def lessThanTheshold(l, threshold):
         return False
     except ValueError:
         return False
+
+try:
+    os.remove("textfiles/counter_cumulative.txt")
+except OSError:
+    pass
 
 for i in increments:
     syn = 0

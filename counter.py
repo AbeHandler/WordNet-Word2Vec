@@ -47,6 +47,7 @@ for i in range(1, len(increments)):
     hyper = 0
     hypo = 0
     stem = 0
+    none = 0
     for line in lines:
         if lessThanTheshold(line, bottom, top):
             if isIt(line, "^syn"):
@@ -61,6 +62,8 @@ for i in range(1, len(increments)):
                 hypo += 1
             if isIt(line, "^same stem"):
                 stem += 1
-    out = ",".join([str(top), str(bottom), str(syn), str(mero), str(holo), str(hyper), str(hypo), str(stem)])
+            if isIt(line, "^none"):
+                none += 1
+    out = ",".join([str(top), str(bottom), str(syn), str(mero), str(holo), str(hyper), str(hypo), str(stem), str(none)])
     with open(writeto, "a") as results:
         results.write('\n' + out)
