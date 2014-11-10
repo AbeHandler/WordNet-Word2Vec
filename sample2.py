@@ -27,13 +27,13 @@ logy = np.log(y)
 print logx
 print logy
 
-#coeffs = np.polyfit(logx,logy,deg=2)
-#poly = np.poly1d(coeffs)
+coeffs = np.polyfit(logx,logy,deg=2)
+poly = np.poly1d(coeffs)
 
-#yfit = lambda x: np.exp(poly(np.log(x)))
+yfit = lambda x: np.exp(poly(np.log(x)))
 
-#print x
-#print yfit(x)
+print x
+print yfit(x)
 
 plt.plot(logx, logy)
 plt.show()

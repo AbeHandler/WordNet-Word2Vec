@@ -1,3 +1,4 @@
+scp counter_cumulative.py abe@shorty.cs.uno.edu:/home/abe/thesis/word2vec
 scp grand_totaler.sh abe@shorty.cs.uno.edu:/home/abe/thesis/word2vec
 scp counter.py abe@shorty.cs.uno.edu:/home/abe/thesis/word2vec
 scp test_all.sh abe@shorty.cs.uno.edu:/home/abe/thesis/word2vec

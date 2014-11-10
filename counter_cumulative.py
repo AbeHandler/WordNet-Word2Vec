@@ -45,4 +45,6 @@ for i in increments:
                     hypo += 1
                 if isIt(line, "^same stem"):
                     stem += 1
-    print ",".join([str(i), str(syn), str(mero), str(holo), str(hyper), str(hypo), str(stem)])
+    out = ",".join([str(i), str(syn), str(mero), str(holo), str(hyper), str(hypo), str(stem)])
+    with open("textfiles/counter_cumulative.txt", "a") as results:
+        results.write('\n' + out)

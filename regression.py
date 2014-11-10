@@ -24,23 +24,23 @@ with open("textfiles/total_count_scatter_stem.txt") as results:
     for line in results.readlines():
         same_stem.append(int(line.replace("\n", "")))
 
-with open("textfiles/total_count_scatter_holo.txt") as results:
+with open("textfiles/holo.txt") as results:
     for line in results.readlines():
         holo.append(int(line.replace("\n", "")))
 
-with open("textfiles/total_count_scatter_mero.txt") as results:
+with open("textfiles/mero.txt") as results:
     for line in results.readlines():
         mero.append(int(line.replace("\n", "")))
 
-with open("textfiles/total_count_scatter_hyper.txt") as results:
+with open("textfiles/hyper.txt") as results:
     for line in results.readlines():
         hyper.append(int(line.replace("\n", "")))
 
-with open("textfiles/total_count_scatter_hypo.txt") as results:
+with open("textfiles/hypo.txt") as results:
     for line in results.readlines():
         hypo.append(int(line.replace("\n", "")))
 
-with open("textfiles/total_count_scatter_syn.txt") as results:
+with open("textfiles/syn.txt") as results:
     for line in results.readlines():
         syn.append(int(line.replace("\n", "")))
 

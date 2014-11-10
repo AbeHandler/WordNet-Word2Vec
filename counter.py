@@ -2,6 +2,7 @@ import numpy as np
 import sys
 import re
 import math
+import os
 import numpy as np
 
 increments = np.linspace(0, 1, num=1000)
@@ -31,6 +32,10 @@ with open("textfiles/results.txt") as results:
         line = line.replace("\n", "")
         lines.append(line)
 
+try:
+    os.remove("textfiles/increments.txt")
+except OSError:
+    pass
 
 for i in range(1, len(increments)):
     top = increments[i]
@@ -42,8 +47,8 @@ for i in range(1, len(increments)):
     hyper = 0
     hypo = 0
     stem = 0
-    for l in lines:
-        if lessThanTheshold(l, bottom, top):
+    for line in lines:
+        if lessThanTheshold(line, bottom, top):
             if isIt(line, "^syn"):
                 syn += 1
             if isIt(line, "^mero"):
