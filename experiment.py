@@ -40,7 +40,7 @@ def inStopWords(w):
         return True
     return False
 
-words = set(reuters.words())
+words = set(random.shuffle(list(set(reuters.words()))))
 
 words = [s for s in words if not inStopWords(s)]
 

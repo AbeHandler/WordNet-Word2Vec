@@ -1,3 +1,7 @@
+scp grand_totaler.sh abe@shorty.cs.uno.edu:/home/abe/thesis/word2vec
+scp counter.py abe@shorty.cs.uno.edu:/home/abe/thesis/word2vec
+scp test_all.sh abe@shorty.cs.uno.edu:/home/abe/thesis/word2vec
+scp test_k.sh abe@shorty.cs.uno.edu:/home/abe/thesis/word2vec
 scp probability_calculator.py abe@shorty.cs.uno.edu:/home/abe/thesis/word2vec
 scp probability_counter.sh abe@shorty.cs.uno.edu:/home/abe/thesis/word2vec
 scp count_adjuster.py abe@shorty.cs.uno.edu:/home/abe/thesis/word2vec
