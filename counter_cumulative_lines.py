@@ -40,7 +40,7 @@ plt.plot(increments, meros, label="Meronyms")
 plt.plot(increments, holos, label="Holonyms")
 
 plt.xlabel('Cosine distance')
-plt.ylabel('Count')
+plt.ylabel('Frequency')
 plt.legend(loc="2")
 
 plt.savefig('total_by_semantic_cumultiave.png', bbox_inches='tight', pad_inches=.4)

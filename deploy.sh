@@ -1,3 +1,4 @@
+scp averagejacard.py abe@shorty.cs.uno.edu:/home/abe/thesis/word2vec
 scp counter_cumulative.py abe@shorty.cs.uno.edu:/home/abe/thesis/word2vec
 scp grand_totaler.sh abe@shorty.cs.uno.edu:/home/abe/thesis/word2vec
 scp counter.py abe@shorty.cs.uno.edu:/home/abe/thesis/word2vec
@@ -15,5 +16,3 @@ scp type_counter.sh abe@shorty.cs.uno.edu:/home/abe/thesis/word2vec
 scp total_counter.sh abe@shorty.cs.uno.edu:/home/abe/thesis/word2vec
 scp scatterploy.py abe@shorty.cs.uno.edu:/home/abe/thesis/word2vec
 scp plotmaker.sh abe@shorty.cs.uno.edu:/home/abe/thesis/word2vec
-#scp chartmaker.py abe@shorty.cs.uno.edu:/home/abe/thesis/word2vec
-#scp barcharter.py abe@shorty.cs.uno.edu:/home/abe/thesis/word2vec

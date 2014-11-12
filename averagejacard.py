@@ -1,131 +1,42 @@
-import numpy as np
-import sys
 import re
-import math
+import numpy as np
 
-
-total = []
-
+syns = []
+meros = []
+hypers = []
+hypos = []
+stems = []
+holos = []
+increments = []
 
 lines = []
-
 
 def isIt(s, p):
     if len(re.findall(p, s)) > 0:
         return True
     return False
 
+with open("textfiles/results.txt") as results:
+    for line in results.readlines():
+        line = line.replace("\n", "")
+        if isIt(line, "^syn"):
+            relation, cos, word1, word2, cos2, k, jacard = line.split(",")
+            syns.append(float(jacard))
+        if isIt(line, "^mero"):
+            relation, cos, word1, word2, cos2, k, jacard = line.split(",")
+            meros.append(float(jacard))
+        if isIt(line, "^holo"):
+            relation, cos, word1, word2, cos2, k, jacard = line.split(",")
+            holos.append(float(jacard))
+        if isIt(line, "^hyper"):
+            relation, cos, word1, word2, cos2, k, jacard = line.split(",")
+            hypers.append(float(jacard))
+        if isIt(line, "^hypo"):
+            relation, cos, word1, word2, cos2, k, jacard = line.split(",")
+            hypos.append(float(jacard))
 
-for line in sys.stdin:
-    lines.append(line.replace("\n", ""))
-
-
-def lessThanGreaterThanK(l, k):
-    try:
-        if (int(l.split(",")[4]) <= k and int(l.split(",")[4]) > floor[k]):
-            return True
-        return False
-    except ValueError:
-        pass
-
-syn = [l for l in lines if isIt(l, "^syn")]
-hypo = [l for l in lines if isIt(l, "^hypo")]
-hyper = [l for l in lines if isIt(l, "^hyper")]
-holo = [l for l in lines if isIt(l, "^holo")]
-mero = [l for l in lines if isIt(l, "^mero")]
-
-
-n_groups = 5
-
-ks = [200, 400, 600, 800, 1000]
-
-floor = {}
-floor[200] = 0
-floor[400] = 200
-floor[600] = 400
-floor[800] = 600
-floor[1000] = 800
-
-count_syn = []
-count_hyper = []
-count_hypo = []
-count_holo = []
-count_mero = []
-base = 10
-
-
-for k in ks:
-    arr = np.array([float(s.split(",")[5]) for s in syn if lessThanGreaterThanK(s, k)])
-    lessthan = np.mean(arr)
-    count_syn.append(lessthan)
-
-for k in ks:
-    lessthan = np.mean(np.array([float(s.split(",")[5]) for s in hyper if lessThanGreaterThanK(s, k)]))
-    count_hyper.append(lessthan)
-
-for k in ks:
-    lessthan = np.mean(np.array([float(s.split(",")[5]) for s in hypo if lessThanGreaterThanK(s, k)]))
-    count_hypo.append(lessthan)
-
-for k in ks:
-    lessthan = np.mean(np.array([float(s.split(",")[5]) for s in holo if lessThanGreaterThanK(s, k)]))
-    count_holo.append(lessthan)
-
-for k in ks:
-    lessthan = np.mean(np.array([float(s.split(",")[5]) for s in mero if lessThanGreaterThanK(s, k)]))
-    count_mero.append(lessthan)
-
-
-count_syn = tuple(count_syn)
-count_hyper = tuple(count_hyper)
-count_hypo = tuple(count_hypo)
-count_holo = tuple(count_holo)
-count_mero = tuple(count_mero)
-
-
-import matplotlib.pyplot as plt
-fig, ax = plt.subplots()
-
-index = np.arange(n_groups)
-bar_width = 0.1
-
-opacity = 0.4
-
-
-rects1 = plt.bar(index + .1, count_syn, bar_width,
-                 alpha=opacity,
-                 color='blue',
-                 label='synonyms')
-
-rects2 = plt.bar(index + .25, count_hyper, bar_width,
-                 alpha=opacity,
-                 color='red',
-                 label='hyernyms')
-
-
-rects3 = plt.bar(index + .4, count_hypo, bar_width,
-                 alpha=opacity,
-                 color='purple',
-                 label='hypernyms')
-
-
-rects4 = plt.bar(index + .55, count_holo, bar_width,
-                 alpha=opacity,
-                 color='green',
-                 label='holonyms')
-
-
-rects5 = plt.bar(index + .7, count_mero, bar_width,
-                 alpha=opacity,
-                 color='orange',
-                 label='meronyms')
-
-
-plt.xlabel('K')
-plt.ylabel('Average Jacard Distance')
-plt.title('Average Jaccard Distance by Relation Type and K')
-plt.xticks(index + bar_width * 5, ('<200', '200-400', '400-600', '600-800', '>800'))
-plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
-
-plt.tight_layout()
-plt.savefig('jacard.png', bbox_inches='tight', pad_inches=.4)
+print "syns {}".format(np.average(syns))
+print "holos {}".format(np.average(holos))
+print "hypers {}".format(np.average(hypers))
+print "hypos {}".format(np.average(hypos))
+print "meros {}".format(np.average(meros))

@@ -4,12 +4,9 @@ from nltk.stem.snowball import SnowballStemmer
 
 stemmer = SnowballStemmer("english")
 
-import argparse
-
-parser = argparse.ArgumentParser()
-
-parser.add_argument('--out', '-o')
-args = vars(parser.parse_args())
+def get_synsets(word, pos):
+    syns = wn.synsets(w, pos)
+    return syns
 
 
 def same_stem(one, two):
@@ -33,8 +30,7 @@ def union(a, b):
     return set(a).union(set(b))
 
 
-def get_meronyms(w):
-    syns = wn.synsets(w)
+def get_meronyms(syns):
     out = []
     for s in syns:
         out.extend([s for s in s.member_meronyms()])
@@ -43,8 +39,7 @@ def get_meronyms(w):
     return set(out)
 
 
-def get_holonyms(w):
-    syns = wn.synsets(w)
+def get_holonyms(syns):
     out = []
     for s in syns:
         out.extend([s for s in s.member_holonyms()])
@@ -61,46 +56,48 @@ def jaccard(a, b):
     return float(intrsc)/float(un)
 
 
-def not_in_wordnet(w):
-    syns = wn.synsets(w)
+def not_in_wordnet(w, pos):
+    syns = wn.synsets(w, pos)
     if len(syns) == 0:
         return True
     return False
 
 
-def synononymous(worda, wordb):
-    return jaccard(wn.synsets(worda), wn.synsets(wordb))
+def synononymous(worda, wordb, pos):
+    syns_a = get_synsets(worda, pos)
+    syns_b = get_synsets(wordb, pos)
+    return jaccard(syns_a, syns_b)
 
 
-def hyoponomous(a, b):
-    synsets_a = wn.synsets(a)
+def hyoponomous(a, b, pos):
+    synsets_a = wn.synsets(a, pos)
 
     hyponyms = []
     for a in synsets_a:
         hyponyms.extend(a.hyponyms())
 
-    synsets_b = wn.synsets(b)
+    synsets_b = wn.synsets(b, pos)
     return jaccard(hyponyms, synsets_b)
 
 
-def hypernomous(a, b):
-    synsets_a = wn.synsets(a)
+def hypernomous(a, b, pos):
+    synsets_a = get_synsets(a, pos)
 
     hypernyms = []
     for a in synsets_a:
         hypernyms.extend(a.hypernyms())
 
-    synsets_b = wn.synsets(b)
+    synsets_b = wn.synsets(b, pos)
     return jaccard(hypernyms, synsets_b)
 
 
-def meronymous(a, b):
-    syn_a = wn.synsets(a)
-    syn_b = get_meronyms(b)
+def meronymous(a, b, pos):
+    syn_a = wn.synsets(a, pos)
+    syn_b = get_meronyms(wn.synsets(b, pos))
     return jaccard(syn_a, syn_b)
 
 
-def holonymous(a, b):
-    syn_a = wn.synsets(a)
-    syn_b = get_holonyms(b)
+def holonymous(a, b, pos):
+    syn_a = wn.synsets(a, pos)
+    syn_b = get_holonyms(wn.synsets(b, pos))
     return jaccard(syn_a, syn_b)

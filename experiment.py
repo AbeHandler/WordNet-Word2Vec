@@ -44,6 +44,8 @@ words = set(random.shuffle(list(set(reuters.words()))))
 
 words = [s for s in words if not inStopWords(s)]
 
+parts_of_speech = [wn.VERB, wn.ADJ, wn.NOUN, wn.ADV]
+
 counter = 0
 for r in words:
     counter = counter + 1
@@ -51,36 +53,38 @@ for r in words:
     try:
         k = 0
         sims = model.most_similar(positive=[r], topn=200)
+
         for s in sims:
             k = k + 1
-            print "counter: " + str(counter) + "-" + str(k)
-            s = (s[0].encode("ascii", 'ignore'), s[1])
-            hit = False
-            search = True
-            if same_stem(s[0], r):
-                search = False
-                printout(",".join(['same stem', str(model.similarity(s[0], r)), s[0], r, str(s[1]), str(k), str(1)]))
-            if not_in_wordnet(r):
-                search = False
-                printout(",".join(['not_in_wordnet', str(model.similarity(s[0], r)), s[0], r, str(s[1]), str(1)]))
-            if search:
-                hyper = hypernomous(s[0], r)
-                hypo = hyoponomous(s[0], r)
-                syno = synononymous(s[0], r)
-                holo = holonymous(s[0], r)
-                mero = meronymous(s[0], r)
-                if hyper > 0 and hyper < 1:
-                    printout(",".join(['hyper', str(model.similarity(s[0], r)), s[0], r, str(s[1]), str(k), str(hyper)]))
-                if hypo > 0 and hypo < 1:
-                    printout(",".join(['hypo', str(model.similarity(s[0], r)), s[0], r, str(s[1]), str(k), str(hypo)]))
-                if syno > 0 and syno < 1:
-                    printout(",".join(['syn', str(model.similarity(s[0], r)), s[0], r, str(s[1]), str(k), str(syno)]))
-                if holo > 0 and holo < 1:
-                    printout(",".join(['holo', str(model.similarity(s[0], r)), s[0], r, str(s[1]), str(k), str(holo)]))
-                if mero > 0 and mero < 1:
-                    printout(",".join(['mero', str(model.similarity(s[0], r)), s[0], r, str(s[1]), str(k), str(mero)]))
-                if (((hyper + hypo + syno + holo + mero) == 0) or ((hyper + hypo + syno + holo + mero) == 5)):
-                    printout(",".join(['none', str(model.similarity(s[0], r)), s[0], r, str(s[1]), str(k)]))
+            for pos in parts_of_speech:
+                print "counter: " + str(counter) + "-" + str(k)
+                s = (s[0].encode("ascii", 'ignore'), s[1])
+                hit = False
+                search = True
+                if same_stem(s[0], r):
+                    search = False
+                    printout(",".join(['same stem', str(model.similarity(s[0], r)), s[0], r, str(s[1]), str(k), str(1)]))
+                if not_in_wordnet(r):
+                    search = False
+                    printout(",".join(['not_in_wordnet', str(model.similarity(s[0], r)), s[0], r, str(s[1]), str(1)]))
+                if search:
+                    hyper = hypernomous(s[0], r, pos)
+                    hypo = hyoponomous(s[0], r, pos)
+                    syno = synononymous(s[0], r, pos)
+                    holo = holonymous(s[0], r, pos)
+                    mero = meronymous(s[0], r, pos)
+                    if hyper > 0 and hyper < 1:
+                        printout(",".join(['hyper', pos, str(model.similarity(s[0], r)), s[0], r, str(s[1]), str(k), str(hyper)]))
+                    if hypo > 0 and hypo < 1:
+                        printout(",".join(['hypo', pos, str(model.similarity(s[0], r)), s[0], r, str(s[1]), str(k), str(hypo)]))
+                    if syno > 0 and syno < 1:
+                        printout(",".join(['syn', pos, str(model.similarity(s[0], r)), s[0], r, str(s[1]), str(k), str(syno)]))
+                    if holo > 0 and holo < 1:
+                        printout(",".join(['holo', pos, str(model.similarity(s[0], r)), s[0], r, str(s[1]), str(k), str(holo)]))
+                    if mero > 0 and mero < 1:
+                        printout(",".join(['mero', pos, str(model.similarity(s[0], r)), s[0], r, str(s[1]), str(k), str(mero)]))
+                    if (((hyper + hypo + syno + holo + mero) == 0) or ((hyper + hypo + syno + holo + mero) == 5)):
+                        printout(",".join(['none', pos, str(model.similarity(s[0], r)), s[0], r, str(s[1]), str(k)]))
     except KeyError:
         print printout(",".join(['KeyError', r]))
         pass
