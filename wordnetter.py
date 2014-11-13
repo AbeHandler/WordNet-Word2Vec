@@ -4,8 +4,9 @@ from nltk.stem.snowball import SnowballStemmer
 
 stemmer = SnowballStemmer("english")
 
+
 def get_synsets(word, pos):
-    syns = wn.synsets(w, pos)
+    syns = wn.synsets(word, pos)
     return syns
 
 
@@ -23,7 +24,7 @@ def intersect(a, b):
     return set(a) & set(b)
 
 
-""" return the intersection of two lists """
+""" return the union of two lists """
 
 
 def union(a, b):
