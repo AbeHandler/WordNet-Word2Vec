@@ -1,7 +1,7 @@
-###An empirical study of semantic similarity in WordNet and Word2Vec
-#####Abram Handler | Master's Thesis: University of New Orleans, Fall 2014
+### An empirical study of semantic similarity in WordNet and Word2Vec
+##### Abram Handler | Master's Thesis: University of New Orleans, Fall 2014
 
-####Project
+#### Project
 Word2Vec is a new unsupervised system for determining the semantic distance between words. For instance, after learning from billions of web pages, Word2Vec reports that the words Chinese river are semantically close to the word Yangtze. Such results have attracted lots of recent attention: over 100 researchers have cited Word2Vec since its publication in 2013. Yet certain aspects of the system’s output are poorly understood. 
 
 In particular:
@@ -12,13 +12,13 @@ In particular:
 
 This study seeks to answer such questions by comparing Word2Vec’s output with WordNet – a large, human-curated “lexical database” [3] and the most-frequently cited “lexiographic resource” [4] in English.
 
-####Results
+#### Results
 
 Pick a word from the Reuters corpus. Get the 200 closest words in Word2Vec. How are these 200 words semantically related to the original word?
 
 ![All results](images/total.png)
 
-####Files
+#### Files
 
 `main.sh` Primary driver for the application. Use ./main.sh to run the experiment and generate results
 
@@ -40,7 +40,7 @@ Pick a word from the Reuters corpus. Get the 200 closest words in Word2Vec. How 
 
 `averagejacard.py` Finds the average Jacard distance for each type of relation
 
-####Dependencies
+#### Dependencies
 
 * **NLTK 3.0.0**
 * **Gensim 0.10.2**
