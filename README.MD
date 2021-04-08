@@ -1,5 +1,6 @@
 ### An empirical study of semantic similarity in WordNet and Word2Vec
-##### Abram Handler | Master's Thesis: University of New Orleans, Fall 2014
+##### Abram Handler
+##### Master's Thesis: University of New Orleans, Fall 2014
 
 #### Project
 Word2Vec is a new unsupervised system for determining the semantic distance between words. For instance, after learning from billions of web pages, Word2Vec reports that the words Chinese river are semantically close to the word Yangtze. Such results have attracted lots of recent attention: over 100 researchers have cited Word2Vec since its publication in 2013. Yet certain aspects of the system’s output are poorly understood. 
